@@ -1,0 +1,160 @@
+paths:
+  /api/v1/payments:
+    post:
+      summary: Record a payment for an order
+      operationId: makePayment
+      tags:
+        - Payments
+      requestBody:
+        description: Payment details for an order
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                orderId:
+                  type: string
+                  example: "order_id_123"
+                amount:
+                  type: number
+                  example: 500
+                type:
+                  type: string
+                  enum:
+                    - deposit
+                    - full
+                  example: "deposit"
+      responses:
+        "201":
+          description: Payment recorded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payment:
+                    type: object
+                    properties:
+                      orderId:
+                        type: string
+                        example: "order_id_123"
+                      amount:
+                        type: number
+                        example: 500
+                      type:
+                        type: string
+                        example: "deposit"
+
+    get:
+      summary: Get all payments
+      operationId: getAllPayments
+      tags:
+        - Payments
+      responses:
+        "200":
+          description: List of all payments
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payments:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        orderId:
+                          type: string
+                          example: "order_id_123"
+                        amount:
+                          type: number
+                          example: 500
+                        type:
+                          type: string
+                          example: "deposit"
+
+  /api/v1/payments/{id}:
+    get:
+      summary: Get payments for a specific order
+      operationId: getPaymentForOrder
+      tags:
+        - Payments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the order for which payments are to be fetched
+      responses:
+        "200":
+          description: Payments for the specific order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payments:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        orderId:
+                          type: string
+                          example: "order_id_123"
+                        amount:
+                          type: number
+                          example: 500
+                        type:
+                          type: string
+                          example: "deposit"
+        "404":
+          description: Payment not found for this order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "error"
+                  message:
+                    type: string
+                    example: "Payment not found for this order"
+
+  /api/v1/payments/payment-report:
+    get:
+      summary: Get payment report for deposits and full payments
+      operationId: getPaymentReport
+      tags:
+        - Payments
+      responses:
+        "200":
+          description: Payment summary report
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  totalDeposits:
+                    type: number
+                    example: 2000
+                  totalFullPayments:
+                    type: number
+                    example: 5000
+                  totalEarnings:
+                    type: number
+                    example: 7000

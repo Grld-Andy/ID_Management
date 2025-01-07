@@ -1,0 +1,121 @@
+paths:
+  /api/v1/auth/login:
+    post:
+      summary: User login
+      description: Authenticate a user with their credentials.
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: John Doe
+                password:
+                  type: string
+                  format: password
+                  example: password123
+      responses:
+        200:
+          description: Successful login
+        401:
+          description: Invalid credentials
+
+  /api/v1/auth/logout:
+    post:
+      summary: User logout
+      description: Log out the current user.
+      tags:
+        - Authentication
+      security:
+        - Authorization: []
+      responses:
+        200:
+          description: Successfully logged out
+        401:
+          description: Unauthorized
+
+  /api/v1/auth/forgot-password:
+    post:
+      summary: Forgot password
+      description: Send a password reset link to the user.
+      tags:
+        - Password Management
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: John Doe
+      responses:
+        200:
+          description: Password reset sent to user
+        404:
+          description: Name not found
+
+  /api/v1/auth/reset-password:
+    post:
+      summary: Reset password
+      description: Reset the user's password using a token.
+      tags:
+        - Password Management
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  example: abc123
+                newPassword:
+                  type: string
+                  format: password
+                  example: newPassword123
+      responses:
+        200:
+          description: Password reset successfully
+        400:
+          description: Invalid token or password
+
+  /api/v1/auth/update-password:
+    patch:
+      summary: Update password
+      description: Update the user's password.
+      tags:
+        - Password Management
+      security:
+        - Authorization: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                currentPassword:
+                  type: string
+                  format: password
+                  example: oldPassword123
+                newPassword:
+                  type: string
+                  format: password
+                  example: newPassword123
+                confirmPassword:
+                  type: string
+                  format: password
+                  example: newPassword123
+      responses:
+        200:
+          description: Password updated successfully
+        401:
+          description: Unauthorized or invalid current password

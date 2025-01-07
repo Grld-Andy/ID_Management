@@ -1,0 +1,136 @@
+paths:
+  /api/v1/user:
+    post:
+      summary: Create a new user
+      tags:
+        - User
+      requestBody:
+        description: User to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - phoneNumber
+                - password
+                - confirmpassword
+              properties:
+                name:
+                  type: string
+                  description: Username
+                  example: "John Doe"
+                phoneNumber:
+                  type: string
+                  description: Phone number
+                  example: "0987654321"
+                password:
+                  type: string
+                  description: User password
+                  format: password
+                  example: "text1234"
+                confirmPassword:
+                  type: string
+                  description: Password confirmation
+                  format: password
+                  example: "text1234"
+      responses:
+        201:
+          description: User created successfully
+        400:
+          description: Invalid data
+        409:
+          description: Username already exists
+        500:
+          description: Server error
+
+    get:
+      summary: Get all users
+      tags:
+        - User
+      security:
+        - Authorization: []
+      responses:
+        200:
+          description: Retrieved users successfully
+        401:
+          description: User not authenticated
+        500:
+          description: Server error
+
+  /api/v1/user/update-me:
+    patch:
+      summary: Update user account
+      tags:
+        - User
+      security:
+        - Authorization: []
+      requestBody:
+        description: User data to update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - phoneNumber
+              properties:
+                name:
+                  type: string
+                  description: Username
+                  example: "John Doe"
+                phoneNumber:
+                  type: string
+                  description: Phone number
+                  example: "0987654321"
+      responses:
+        204:
+          description: User account deleted successfully
+        401:
+          description: User not authenticated
+        500:
+          description: Server error
+
+  /api/v1/user/delete-me:
+    patch:
+      summary: Soft delete user account
+      tags:
+        - User
+      security:
+        - Authorization: []
+      responses:
+        204:
+          description: User account deleted successfully
+        401:
+          description: User not authenticated
+        403:
+          description: Current user not an admin
+        500:
+          description: Server error
+
+  /recover-user:
+    patch:
+      summary: Recover deleted user account
+      tags:
+        - User
+      security:
+        - Authorization: []
+      description: Activates deleted user account
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+          description: Account id to recover
+          required: true
+      responses:
+        200:
+          description: User account recovered successfully
+        401:
+          description: User not authenticated
+        403:
+          description: Current user not an admin
+        500:
+          description: Server error

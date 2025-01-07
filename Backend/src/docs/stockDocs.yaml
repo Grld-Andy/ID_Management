@@ -1,0 +1,264 @@
+paths:
+  /api/v1/stocks:
+    post:
+      summary: Add a new item to stock
+      operationId: createStock
+      tags:
+        - Stock
+      requestBody:
+        description: Stock details to add
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Fabric"
+                quantity:
+                  type: number
+                  example: 100
+                price:
+                  type: number
+                  example: 50
+                description:
+                  type: string
+                  example: "High-quality cotton fabric"
+      responses:
+        "201":
+          description: Stock item added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  stock:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: "Fabric"
+                      quantity:
+                        type: number
+                        example: 100
+                      price:
+                        type: number
+                        example: 50
+                      description:
+                        type: string
+                        example: "High-quality cotton fabric"
+
+    get:
+      summary: Get all stock items
+      operationId: getAllStocks
+      tags:
+        - Stock
+      responses:
+        "200":
+          description: List of all stock items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  stocks:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: "Fabric"
+                        quantity:
+                          type: number
+                          example: 100
+                        price:
+                          type: number
+                          example: 50
+                        description:
+                          type: string
+                          example: "High-quality cotton fabric"
+
+  /api/v1/stocks/{id}:
+    get:
+      summary: Get a specific stock item
+      operationId: getStock
+      tags:
+        - Stock
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the stock item
+      responses:
+        "200":
+          description: The stock item found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  stock:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: "Fabric"
+                      quantity:
+                        type: number
+                        example: 100
+                      price:
+                        type: number
+                        example: 50
+                      description:
+                        type: string
+                        example: "High-quality cotton fabric"
+        "404":
+          description: Stock item not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "error"
+                  message:
+                    type: string
+                    example: "Stock item not found"
+
+    patch:
+      summary: Update stock details
+      operationId: updateStock
+      tags:
+        - Stock
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the stock item to be updated
+      requestBody:
+        description: Stock details to update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Fabric"
+                quantity:
+                  type: number
+                  example: 150
+                price:
+                  type: number
+                  example: 55
+                description:
+                  type: string
+                  example: "High-quality cotton fabric (Updated)"
+      responses:
+        "200":
+          description: Stock item updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  stock:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: "Fabric"
+                      quantity:
+                        type: number
+                        example: 150
+                      price:
+                        type: number
+                        example: 55
+                      description:
+                        type: string
+                        example: "High-quality cotton fabric (Updated)"
+        "404":
+          description: Stock item not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "error"
+                  message:
+                    type: string
+                    example: "Stock item not found"
+
+    delete:
+      summary: Delete a stock item
+      operationId: deleteStock
+      tags:
+        - Stock
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the stock item to delete
+      responses:
+        "200":
+          description: Stock item deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  stock:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: "Fabric"
+                      quantity:
+                        type: number
+                        example: 150
+                      price:
+                        type: number
+                        example: 55
+                      description:
+                        type: string
+                        example: "High-quality cotton fabric (Updated)"
+        "404":
+          description: Stock item not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "error"
+                  message:
+                    type: string
+                    example: "Stock item not found"

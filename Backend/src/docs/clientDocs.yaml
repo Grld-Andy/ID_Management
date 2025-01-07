@@ -1,0 +1,217 @@
+paths:
+  /api/v1/clients:
+    post:
+      summary: Create a new client
+      operationId: createClient
+      tags:
+        - Clients
+      requestBody:
+        description: The client details to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "John Doe"
+                phone:
+                  type: string
+                  example: "1234567890"
+                email:
+                  type: string
+                  example: "john.doe@example.com"
+                address:
+                  type: string
+                  example: "123 Main Street"
+              required:
+                - name
+                - phone
+                - email
+                - address
+      responses:
+        '201':
+          description: Client created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      phone:
+                        type: string
+                      email:
+                        type: string
+                      address:
+                        type: string
+        '500':
+          description: Internal Server Error
+
+    get:
+      summary: Get all clients
+      operationId: getClients
+      tags:
+        - Clients
+      responses:
+        '200':
+          description: List of clients
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        phone:
+                          type: string
+                        email:
+                          type: string
+                        address:
+                          type: string
+        '500':
+          description: Internal Server Error
+
+  /clients/{id}:
+    get:
+      summary: Get a specific client by ID
+      operationId: getClientById
+      tags:
+        - Clients
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Client details found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      phone:
+                        type: string
+                      email:
+                        type: string
+                      address:
+                        type: string
+        '404':
+          description: Client not found
+        '500':
+          description: Internal Server Error
+
+    put:
+      summary: Update a client
+      operationId: updateClient
+      tags:
+        - Clients
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Client details to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Jane Doe"
+                phone:
+                  type: string
+                  example: "0987654321"
+                email:
+                  type: string
+                  example: "jane.doe@example.com"
+                address:
+                  type: string
+                  example: "456 New Street"
+      responses:
+        '200':
+          description: Client updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      phone:
+                        type: string
+                      email:
+                        type: string
+                      address:
+                        type: string
+        '404':
+          description: Client not found
+        '500':
+          description: Internal Server Error
+
+    delete:
+      summary: Delete a client
+      operationId: deleteClient
+      tags:
+        - Clients
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Client deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Client deleted successfully"
+        '404':
+          description: Client not found
+        '500':
+          description: Internal Server Error
+
+  
