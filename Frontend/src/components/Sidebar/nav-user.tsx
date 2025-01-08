@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  UserRoundCog ,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
-} from "lucide-react";
+import { UserRoundCog, ChevronsUpDown, LogOut } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -78,7 +71,7 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <UserRoundCog  />
+                <UserRoundCog />
                 Account
               </DropdownMenuItem>
             </DropdownMenuGroup>
