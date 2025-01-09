@@ -53,7 +53,7 @@ const data = {
           url: "/employees",
         },
         {
-          title: "Stocks",
+          title: "Products",
           url: "/stocks",
         },
         {

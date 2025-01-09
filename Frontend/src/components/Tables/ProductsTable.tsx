@@ -1,9 +1,9 @@
 import { ArrowUpAz, Pencil, Trash } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
-import users from "@/data/users";
+import products from "@/data/products";
 
-const EmployeeTable: React.FC = () => {
+const ProductsTable: React.FC = () => {
   return (
     <div className="w-full border rounded-md overflow-hidden">
       <div className="grid grid-cols-[repeat(4,1fr),110px] bg-gray-200 font-bold text-gray-700 rounded-t-md">
@@ -14,29 +14,29 @@ const EmployeeTable: React.FC = () => {
           </div>
         </div>
         <div className="col-span-1 p-3 flex hover:bg-gray-100 cursor-pointer">
-          <p>Contact</p>
+          <p>Description</p>
         </div>
         <div className="col-span-1 p-3 flex hover:bg-gray-100 cursor-pointer">
-          <p>Role</p>
+          <p>Price</p>
         </div>
         <div className="col-span-1 p-3 flex hover:bg-gray-100 cursor-pointer">
-          <p>Created</p>
+          <p>Added</p>
         </div>
         <div className="col-span-1 p-3 flex">
           <p>Actions</p>
         </div>
       </div>
       <div className="divide-y divide-gray-300">
-        {users.map((user, index) => (
+        {products.map((product, index) => (
           <div
             key={index}
             className="grid grid-cols-[repeat(4,1fr),115px] p-1 bg-white items-center hover:bg-gray-100 transition-colors duration-200"
           >
-            <div className="col-span-1 p-2">{user.name}</div>
-            <div className="col-span-1 p-2">{user.phoneNumber}</div>
-            <div className="col-span-1 p-2">{user.role}</div>
+            <div className="col-span-1 p-2">{product.name}</div>
+            <div className="col-span-1 p-2">{product.description}</div>
+            <div className="col-span-1 p-2">{product.price}</div>
             <div className="col-span-1 p-2">
-              {user.createdAt.toDateString()}
+              {product.createdAt.toDateString()}
             </div>
             <div className="col-span-1 p-2 flex gap-2">
               <Button>
@@ -53,4 +53,4 @@ const EmployeeTable: React.FC = () => {
   );
 };
 
-export default EmployeeTable;
+export default ProductsTable;
