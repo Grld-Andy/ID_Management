@@ -1,11 +1,14 @@
 import { PaginationList } from "@/components/Layout/PaginationList";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import React from "react";
+import React, { useContext } from "react";
 import { Filter, Search, UserPlus } from "lucide-react";
 import EmployeeTable from "@/components/Tables/EmployeeTable";
+import EmployeeContext from "@/context/employeeContext/context";
 
 const EmployeesPage: React.FC = () => {
+  const { employees } = useContext(EmployeeContext);
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex justify-between align-center">
@@ -17,7 +20,7 @@ const EmployeesPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid items-center gap-5 grid-cols-[1fr,250px]">
+      <div className="grid items-center gap-5 grid-cols-[1fr,190px]">
         <div className="flex items-center gap-4 w-full">
           <div className="flex align-center relative w-full max-w-[500px]">
             <Input
@@ -44,7 +47,7 @@ const EmployeesPage: React.FC = () => {
       </div>
 
       <EmployeeTable />
-      <PaginationList />
+      {employees.length && <PaginationList />}
     </div>
   );
 };

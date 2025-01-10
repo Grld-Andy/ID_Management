@@ -27,7 +27,7 @@ export const EmployeeReducer = (
         return user._id != state[0]._id ? { ...user, isActive: false } : user;
       });
     case "REFRESH_EMPLOYEES":
-      return { ...action.payload };
+      return action.payload;
     default:
       return state;
   }

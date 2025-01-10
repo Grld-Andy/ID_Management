@@ -7,7 +7,7 @@ const products: Array<Product> = [
     description:
       "A sleek, modern sofa with comfortable cushions and durable fabric.",
     price: 599.99,
-    createdAt: new Date("2023-01-01T10:00:00Z"),
+    createdAt: new Date("2013-01-01T10:00:00Z"),
     createdBy: "Alice Johnson",
   },
   {
@@ -16,7 +16,7 @@ const products: Array<Product> = [
     description:
       "A wooden dining table with six matching chairs, perfect for family meals.",
     price: 899.99,
-    createdAt: new Date("2023-01-01T10:00:00Z"),
+    createdAt: new Date("2023-05-01T10:00:00Z"),
     createdBy: "Alice Johnson",
   },
   {
@@ -34,7 +34,7 @@ const products: Array<Product> = [
     description:
       "Abstract wall art with vibrant colors, ideal for contemporary interiors.",
     price: 79.99,
-    createdAt: new Date("2023-01-01T10:00:00Z"),
+    createdAt: new Date("2024-01-01T10:00:00Z"),
     createdBy: "Alice Johnson",
   },
   {
@@ -43,7 +43,7 @@ const products: Array<Product> = [
     description:
       "A soft, patterned rug to enhance the look and feel of your room.",
     price: 199.99,
-    createdAt: new Date("2023-01-01T10:00:00Z"),
+    createdAt: new Date("2000-01-01T10:00:00Z"),
     createdBy: "Alice Johnson",
   },
 ];

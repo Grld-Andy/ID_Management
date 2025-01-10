@@ -8,7 +8,7 @@ interface Props {
 }
 
 const EmployeeContextProvider: React.FC<Props> = ({ children }) => {
-  const [employees, employeesDispatch] = useReducer(EmployeeReducer, []);
+  const [employees, employeesDispatch] = useReducer(EmployeeReducer, users);
 
   useEffect(() => {
     employeesDispatch({ type: "REFRESH_EMPLOYEES", payload: users });
