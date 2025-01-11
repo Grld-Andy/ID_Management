@@ -5,14 +5,17 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
 import EmployeeContextProvider from "./context/employeeContext/provider.tsx";
 import ProductContextProvider from "./context/productsContext/provider.tsx";
+import ClientContextProvider from "./context/clientContext/provider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <EmployeeContextProvider>
-        <ProductContextProvider>
-          <App />
-        </ProductContextProvider>
+        <ClientContextProvider>
+          <ProductContextProvider>
+            <App />
+          </ProductContextProvider>
+        </ClientContextProvider>
       </EmployeeContextProvider>
     </BrowserRouter>
   </StrictMode>

@@ -1,4 +1,3 @@
-import CreateClientDialog from "@/components/Dialog/Client/CreateClientDialog";
 import { PaginationList } from "@/components/Layout/PaginationList";
 import ClientsTable from "@/components/Tables/Client/ClientTable";
 import { Button } from "@/components/ui/button";
@@ -22,6 +21,7 @@ import { Label } from "@/components/ui/label";
 import DeleteDialog from "@/components/Dialog/DeleteDialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import ClientContext from "@/context/clientContext/context";
+import CreateClientDialog from "@/components/Dialog/Client/CreateClientDialog";
 
 interface ClientFilters {
   show: string;
@@ -33,7 +33,7 @@ const ClientsPage: React.FC = () => {
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const currentPage = parseInt(queryParams.get("page") || "1", 10);
-  const { Clients, ClientsDispatch } = useContext(ClientContext);
+  const { clients, clientsDispatch } = useContext(ClientContext);
   const [search, setSearch] = useState<string>("");
   const [selectedClients, setSelectedClients] = useState<Array<string>>([]);
   const [sortBy, setSortBy] = useState<string>("createdAt");
@@ -50,18 +50,12 @@ const ClientsPage: React.FC = () => {
 
   const filteredClients = useMemo(() => {
     localStorage.setItem(
-      "ClientFilters",
+      "clientFilters",
       JSON.stringify(filters || initialFilters)
     );
-    let filtered = Clients.filter((item) =>
+    let filtered = clients.filter((item) =>
       item.name.toLowerCase().includes(search.toLowerCase())
     );
-    if (filters.show != "all") {
-      filtered = filtered.filter((Client) => Client.role == filters.show);
-    }
-    if (!filters.deactivated) {
-      filtered = filtered.filter((Client) => Client.active);
-    }
     if (sortBy.startsWith("-")) {
       const key = sortBy.slice(1);
       filtered = filtered.sort((a: any, b: any) => {
@@ -90,7 +84,7 @@ const ClientsPage: React.FC = () => {
       });
     }
     return filtered;
-  }, [Clients, search, filters, sortBy, currentPage]);
+  }, [clients, search, filters, sortBy, currentPage]);
 
   const itemsPerPage = 10;
   const totalItems = filteredClients.length;
@@ -109,7 +103,7 @@ const ClientsPage: React.FC = () => {
     await Promise.all(
       selectedClients.map(async (ClientId) => {
         try {
-          ClientsDispatch({
+          clientsDispatch({
             type: "DELETE_Client",
             payload: [],
             id: ClientId,
@@ -130,7 +124,7 @@ const ClientsPage: React.FC = () => {
             title="Total Clients"
             className="relative font-medium top-2 rounded-xl px-1 bg-blue-700 text-white h-7 grid place-items-center"
           >
-            <p>{Clients.length}</p>
+            <p>{clients.length}</p>
           </span>
         </div>
       </div>
@@ -228,8 +222,8 @@ const ClientsPage: React.FC = () => {
       {paginatedClients.length ? (
         <PaginationList
           totalPages={totalPages}
-          baseUrl={"/Clients"}
-          length={Clients.length}
+          baseUrl={"/clients"}
+          length={clients.length}
           currentPage={currentPage}
         />
       ) : (

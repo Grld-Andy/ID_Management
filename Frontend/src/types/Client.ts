@@ -1,10 +1,12 @@
 interface Client {
   _id: string;
   name: string;
-  phone: number;
+  phoneNumber: string;
   address: string;
-  extraDetails: string;
+  extraDetails?: string;
   ordersId: Array<string>;
+  createdAt: Date;
+  createdBy: string;
 }
 
 export default Client;

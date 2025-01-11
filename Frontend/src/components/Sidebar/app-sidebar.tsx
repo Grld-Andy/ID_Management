@@ -46,7 +46,7 @@ const data = {
       items: [
         {
           title: "Clients",
-          url: "/",
+          url: "/clients?page=1",
         },
         {
           title: "Employees",
@@ -58,7 +58,7 @@ const data = {
         },
         {
           title: "Orders",
-          url: "/orders",
+          url: "/orders?page=1",
         },
         {
           title: "Finance",
