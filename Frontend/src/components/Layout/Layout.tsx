@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "../ui/sidebar";
 import { AppSidebar } from "../Sidebar/app-sidebar";
+import { Toaster } from "@/components/ui/toaster";
 
 const Layout: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const Layout: React.FC = () => {
 
           <div className="p-5 pt-10">
             <Outlet />
+            <Toaster />
           </div>
         </SidebarInset>
       </SidebarProvider>

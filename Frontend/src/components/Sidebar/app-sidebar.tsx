@@ -50,11 +50,11 @@ const data = {
         },
         {
           title: "Employees",
-          url: "/employees",
+          url: "/employees?page=1",
         },
         {
           title: "Products",
-          url: "/stocks",
+          url: "/products?page=1",
         },
         {
           title: "Orders",

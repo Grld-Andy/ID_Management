@@ -6,7 +6,7 @@ import LoginPage from "@/pages/LoginPage";
 import EmployeesPage from "@/pages/EmployeesPage";
 import ClientsPage from "@/pages/ClientsPage";
 import OrdersPage from "@/pages/OrdersPage";
-import StocksPage from "@/pages/StocksPage";
+import ProductsPage from "@/pages/ProductsPage";
 import FinancePage from "@/pages/FinancePage";
 import SignupPage from "@/pages/SignupPage";
 import Profile from "@/pages/Settings/Profile";
@@ -22,7 +22,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<ClientsPage />} />
         <Route path="/finance" element={<FinancePage />} />
-        <Route path="/stocks" element={<StocksPage />} />
+        <Route path="/products" element={<ProductsPage />} />
         <Route path="/orders" element={<OrdersPage />} />
         <Route path="/employees" element={<EmployeesPage />} />
         <Route path="/settings" element={<SettingsLayout />}>

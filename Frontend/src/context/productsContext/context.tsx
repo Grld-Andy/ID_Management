@@ -3,7 +3,11 @@ import { createContext, Dispatch } from "react";
 
 interface ProductContextType {
   products: Array<Product>;
-  productsDispatch: Dispatch<{ type: string; payload: Array<Product> }>;
+  productsDispatch: Dispatch<{
+    type: string;
+    payload: Array<Product>;
+    id?: string;
+  }>;
 }
 
 const ProductContext = createContext<ProductContextType>({

@@ -42,9 +42,9 @@ function CreateProductDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>
-          <p>Add</p>
-          <PackagePlus aria-description="add item" />
+        <Button title="Add Product">
+          <p className="hidden xl:block">Add</p>
+          <PackagePlus aria-description="add product" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[525px]">
