@@ -28,7 +28,7 @@ interface EmployeeFilters {
   deactivated: boolean;
 }
 
-const StocksPage: React.FC = () => {
+const EmployeesPage: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
@@ -242,4 +242,4 @@ const StocksPage: React.FC = () => {
   );
 };
 
-export default StocksPage;
+export default EmployeesPage;
