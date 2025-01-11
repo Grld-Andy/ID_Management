@@ -14,8 +14,8 @@ import { Pencil } from "lucide-react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Product from "@/types/Product";
-import ProductContext from "@/context/productsContext/context";
+import User from "@/types/User";
+import EmployeeContext from "@/context/employeeContext/context";
 import {
   Form,
   FormField,
@@ -25,65 +25,68 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useContext, useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-const productSchema = z.object({
-  name: z.string().nonempty("Product name is required"),
-  description: z
+const employeeSchema = z.object({
+  name: z.string().nonempty("Name is required"),
+  role: z.enum(["employee", "admin"]),
+  phoneNumber: z
     .string()
-    .min(10, "Description must be at least 10 characters")
+    .regex(/^\d+$/, "Phone number must be numeric")
+    .min(10, "Phone number must be at least 10 digits")
     .optional(),
-  price: z
-    .number({
-      invalid_type_error: "Price must be a number",
-    })
-    .positive("Price must be greater than zero"),
 });
 
-type ProductFormValues = z.infer<typeof productSchema>;
+type EmployeeFormValues = z.infer<typeof employeeSchema>;
 
 interface Props {
-  product: Product;
+  employee: User;
 }
 
-const EditProductDialog: React.FC<Props> = ({ product }) => {
+const EditEmployeeDialog: React.FC<Props> = ({ employee }) => {
+  const { employeesDispatch } = useContext(EmployeeContext);
   const [isOpen, setIsOpen] = useState(false);
-  const { productsDispatch } = useContext(ProductContext);
 
-  const form = useForm<ProductFormValues>({
-    resolver: zodResolver(productSchema),
+  const form = useForm<EmployeeFormValues>({
+    resolver: zodResolver(employeeSchema),
     defaultValues: {
-      name: product.name,
-      description: product.description,
-      price: product.price,
+      name: employee.name,
+      role: employee.role,
+      phoneNumber: employee.phoneNumber,
     },
   });
-
-  const saveProductUpdate = (values: ProductFormValues) => {
-    const updatedProduct = {
-      ...product,
+  const saveEmployeeUpdate = (values: EmployeeFormValues) => {
+    const updatedEmployee = {
+      ...employee,
       ...values,
     };
-    productsDispatch({ type: "UPDATE_PRODUCT", payload: [updatedProduct] });
+    employeesDispatch({ type: "UPDATE_EMPLOYEE", payload: [updatedEmployee] });
     setIsOpen(false);
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">
-          <Pencil aria-description="edit product" />
+        <Button variant="outline" title="Edit">
+          <Pencil aria-description="edit employee" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[525px]">
         <DialogHeader>
-          <DialogTitle className="text-[20px]">Edit Product</DialogTitle>
+          <DialogTitle className="text-[20px]">Edit Employee</DialogTitle>
           <DialogDescription className="text-[16px]">
-            Edit {product.name}.
+            Edit details for {employee.name}.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(saveProductUpdate)}
+            onSubmit={form.handleSubmit(saveEmployeeUpdate)}
             className="grid gap-4 pb-4"
           >
             <FormField
@@ -93,38 +96,44 @@ const EditProductDialog: React.FC<Props> = ({ product }) => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Modern Sofa" {...field} />
+                    <Input placeholder="John Doe" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
-              name="description"
+              name="role"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Role</FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="SOFA RECLINER WITH SWIVEL+ROCKER PU GREY 2027"
-                      {...field}
-                    />
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a role" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="employee">Employee</SelectItem>
+                        <SelectItem value="admin">Admin</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
-              name="price"
+              name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Price</FormLabel>
+                  <FormLabel>Phone Number</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="100.00" {...field} />
+                    <Input type="tel" placeholder="0123456789" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -141,4 +150,4 @@ const EditProductDialog: React.FC<Props> = ({ product }) => {
   );
 };
 
-export default EditProductDialog;
+export default EditEmployeeDialog;

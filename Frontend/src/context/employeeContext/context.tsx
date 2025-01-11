@@ -3,7 +3,11 @@ import { createContext, Dispatch } from "react";
 
 interface EmployeeContextType {
   employees: Array<User>;
-  employeesDispatch: Dispatch<{ type: string; payload: Array<User> }>;
+  employeesDispatch: Dispatch<{
+    type: string;
+    payload: Array<User>;
+    id?: string;
+  }>;
 }
 
 const EmployeeContext = createContext<EmployeeContextType>({

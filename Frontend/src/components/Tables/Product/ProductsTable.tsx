@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import React from "react";
 import Product from "@/types/Product";
-import ProductItem from "./Product/ProductItem";
+import ProductItem from "./ProductItem";
 
 interface Props {
   products: Array<Product>;

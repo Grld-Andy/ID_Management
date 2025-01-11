@@ -1,6 +1,6 @@
 import CreateProductDialog from "@/components/Dialog/Product/CreateProductDialog";
 import { PaginationList } from "@/components/Layout/PaginationList";
-import ProductsTable from "@/components/Tables/ProductsTable";
+import ProductsTable from "@/components/Tables/Product/ProductsTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import ProductContext from "@/context/productsContext/context";

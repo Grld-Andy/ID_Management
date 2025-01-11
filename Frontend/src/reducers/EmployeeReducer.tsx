@@ -2,7 +2,7 @@ import User from "@/types/User";
 
 export const EmployeeReducer = (
   state: Array<User>,
-  action: { type: string; payload: Array<User> }
+  action: { type: string; payload: Array<User>; id?: string }
 ): Array<User> => {
   switch (action.type) {
     case "ADD_EMPLOYEE":
@@ -17,14 +17,11 @@ export const EmployeeReducer = (
       });
     case "DELETE_EMPLOYEE":
       return state.map((user) => {
-        const shouldDeactivate = action.payload.some(
-          (deletedUser) => deletedUser._id === user._id
-        );
-        return shouldDeactivate ? { ...user, isActive: false } : user;
+        return user._id == action.id ? { ...user, active: false } : user;
       });
     case "DELETE_ALL_EMPLOYEES":
       return state.map((user) => {
-        return user._id != state[0]._id ? { ...user, isActive: false } : user;
+        return user.role != "admin" ? { ...user, active: false } : user;
       });
     case "REFRESH_EMPLOYEES":
       return action.payload;

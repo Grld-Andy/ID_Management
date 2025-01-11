@@ -10,33 +10,55 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { PackagePlus } from "lucide-react";
-import { useContext, useState } from "react";
 import ProductContext from "@/context/productsContext/context";
 import Product from "@/types/Product";
+import { useContext } from "react";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
+
+const productSchema = z.object({
+  name: z.string().nonempty("Product name is required"),
+  description: z.string().optional(),
+  price: z
+    .number({
+      invalid_type_error: "Price must be a number",
+    })
+    .positive("Price must be greater than zero"),
+});
+
+type ProductFormValues = z.infer<typeof productSchema>;
 
 function CreateProductDialog() {
   const { productsDispatch } = useContext(ProductContext);
-  const initialProduct: Product = {
-    _id: "",
-    name: "",
-    description: "",
-    price: 0,
-    createdAt: new Date(),
-    createdBy: "",
-  };
-  const [product, setProduct] = useState<Product>(initialProduct);
 
-  const addProduct = () => {
-    const productToAdd = {
-      ...product,
+  const form = useForm<ProductFormValues>({
+    resolver: zodResolver(productSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+      price: 0,
+    },
+  });
+
+  const addProduct = (values: ProductFormValues) => {
+    const newProduct: Product = {
+      ...values,
       _id: Date.now().toString(),
-      createdBy: "Andy",
       createdAt: new Date(),
+      createdBy: "Andy",
     };
-    setProduct(initialProduct);
-    productsDispatch({ type: "ADD_PRODUCT", payload: [productToAdd] });
+    productsDispatch({ type: "ADD_PRODUCT", payload: [newProduct] });
+    form.reset();
   };
 
   return (
@@ -54,65 +76,58 @@ function CreateProductDialog() {
             Add a new product to the store.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right text-[16px]">
-              Name
-            </Label>
-            <Input
-              value={product.name}
-              onChange={(e) => {
-                setProduct((prev) => {
-                  return { ...prev, name: e.target.value };
-                });
-              }}
-              id="name"
-              placeholder="Modern Sofa"
-              className="col-span-3"
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(addProduct)}
+            className="grid gap-4 pb-4"
+          >
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Modern Sofa" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label
-              htmlFor="description"
-              className="text-right place-items-start pt-1 h-full text-[16px]"
-            >
-              Description
-            </Label>
-            <Textarea
-              value={product.description}
-              onChange={(e) => {
-                setProduct((prev) => {
-                  return { ...prev, description: e.target.value };
-                });
-              }}
-              id="description"
-              placeholder="SOFA RECLINER WITH SWIVEL+ROCKER PU GREY 2027"
-              className="col-span-3"
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="SOFA RECLINER WITH SWIVEL+ROCKER PU GREY 2027"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="price" className="text-right text-[16px]">
-              Price
-            </Label>
-            <Input
-              value={product.price}
-              onChange={(e) => {
-                setProduct((prev) => {
-                  return { ...prev, price: Number(e.target.value) };
-                });
-              }}
-              type="number"
-              id="price"
-              placeholder="100.00"
-              className="col-span-3"
+            <FormField
+              control={form.control}
+              name="price"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Price</FormLabel>
+                  <FormControl>
+                    <Input type="number" placeholder="100.00" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-        </div>
-        <DialogFooter>
-          <Button onClick={addProduct} type="submit">
-            Save changes
-          </Button>
-        </DialogFooter>
+            <DialogFooter>
+              <Button type="submit">Save changes</Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );

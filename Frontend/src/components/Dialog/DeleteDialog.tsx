@@ -30,7 +30,6 @@ const DeleteDialog: React.FC<Props> = ({
   const deleteItem = async () => {
     try {
       await deleteFunction();
-      console.log("Deleted successfully");
       toast({
         title: `Successfully deleted ${text}`,
         description: new Date().toDateString(),
@@ -43,14 +42,17 @@ const DeleteDialog: React.FC<Props> = ({
         // action: <ToastAction altText="Goto schedule to undo">Undo</ToastAction>,
       });
     }
-
-    setIsOpen(false); // Close modal or whatever you want to close
+    setIsOpen(false);
   };
 
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive" aria-description="delete product">
+        <Button
+          variant="destructive"
+          aria-description="delete product"
+          title="Delete"
+        >
           {buttonText && <p className="hidden xl:block">{buttonText}</p>}
           <Trash />
         </Button>
@@ -61,7 +63,9 @@ const DeleteDialog: React.FC<Props> = ({
             Are you absolutely sure?
           </AlertDialogTitle>
           <AlertDialogDescription className="text-[16px]">
-            This action cannot be undone. This will permanently delete{" "}
+            This action cannot be undone.
+            <br />
+            This will permanently delete{" "}
             <span className="text-black font-bold">{text}</span> and remove your
             data from our servers.
           </AlertDialogDescription>
