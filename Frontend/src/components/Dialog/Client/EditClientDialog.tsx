@@ -14,8 +14,7 @@ import { Pencil } from "lucide-react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import User from "@/types/User";
-import EmployeeContext from "@/context/employeeContext/context";
+import Client from "@/types/Client";
 import {
   Form,
   FormField,
@@ -32,10 +31,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import ClientContext from "@/context/clientContext/context";
 
-const employeeSchema = z.object({
+const ClientSchema = z.object({
   name: z.string().nonempty("Name is required"),
-  role: z.enum(["employee", "admin"]),
+  role: z.enum(["Client", "admin"]),
   phoneNumber: z
     .string()
     .regex(/^\d+$/, "Phone number must be numeric")
@@ -43,30 +43,30 @@ const employeeSchema = z.object({
     .optional(),
 });
 
-type EmployeeFormValues = z.infer<typeof employeeSchema>;
+type ClientFormValues = z.infer<typeof ClientSchema>;
 
 interface Props {
-  employee: User;
+  client: Client;
 }
 
-const EditEmployeeDialog: React.FC<Props> = ({ employee }) => {
-  const { employeesDispatch } = useContext(EmployeeContext);
+const EditClientDialog: React.FC<Props> = ({ client }) => {
+  const { clientsDispatch } = useContext(ClientContext);
   const [isOpen, setIsOpen] = useState(false);
 
-  const form = useForm<EmployeeFormValues>({
-    resolver: zodResolver(employeeSchema),
+  const form = useForm<ClientFormValues>({
+    resolver: zodResolver(ClientSchema),
     defaultValues: {
-      name: employee.name,
-      role: employee.role,
-      phoneNumber: employee.phoneNumber,
+      name: client.name,
+      role: client.role,
+      phoneNumber: client.phoneNumber,
     },
   });
-  const saveEmployeeUpdate = (values: EmployeeFormValues) => {
-    const updatedEmployee = {
-      ...employee,
+  const saveClientUpdate = (values: ClientFormValues) => {
+    const updatedClient = {
+      ...client,
       ...values,
     };
-    employeesDispatch({ type: "UPDATE_EMPLOYEE", payload: [updatedEmployee] });
+    clientsDispatch({ type: "UPDATE_Client", payload: [updatedClient] });
     setIsOpen(false);
   };
 
@@ -74,19 +74,19 @@ const EditEmployeeDialog: React.FC<Props> = ({ employee }) => {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" title="Edit">
-          <Pencil aria-description="edit employee" />
+          <Pencil aria-description="edit Client" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[525px]">
         <DialogHeader>
-          <DialogTitle className="text-[20px]">Edit Employee</DialogTitle>
+          <DialogTitle className="text-[20px]">Edit Client</DialogTitle>
           <DialogDescription className="text-[16px]">
-            Edit details for {employee.name}.
+            Edit details for {client.name}.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(saveEmployeeUpdate)}
+            onSubmit={form.handleSubmit(saveClientUpdate)}
             className="grid gap-4 pb-4"
           >
             <FormField
@@ -117,7 +117,7 @@ const EditEmployeeDialog: React.FC<Props> = ({ employee }) => {
                         <SelectValue placeholder="Select a role" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="employee">Employee</SelectItem>
+                        <SelectItem value="Client">Client</SelectItem>
                         <SelectItem value="admin">Admin</SelectItem>
                       </SelectContent>
                     </Select>
@@ -150,4 +150,4 @@ const EditEmployeeDialog: React.FC<Props> = ({ employee }) => {
   );
 };
 
-export default EditEmployeeDialog;
+export default EditClientDialog;
