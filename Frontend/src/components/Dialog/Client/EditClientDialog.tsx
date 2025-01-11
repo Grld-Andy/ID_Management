@@ -24,23 +24,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useContext, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import ClientContext from "@/context/clientContext/context";
 
 const ClientSchema = z.object({
   name: z.string().nonempty("Name is required"),
-  role: z.enum(["Client", "admin"]),
   phoneNumber: z
     .string()
-    .regex(/^\d+$/, "Phone number must be numeric")
-    .min(10, "Phone number must be at least 10 digits")
-    .optional(),
+    .regex(/^\d+$/, "Contact must be numeric")
+    .min(10, "Contact must be at least 10 digits"),
+  address: z.string(),
+  extraDetails: z.string().optional(),
 });
 
 type ClientFormValues = z.infer<typeof ClientSchema>;
@@ -57,8 +50,9 @@ const EditClientDialog: React.FC<Props> = ({ client }) => {
     resolver: zodResolver(ClientSchema),
     defaultValues: {
       name: client.name,
-      role: client.role,
       phoneNumber: client.phoneNumber,
+      address: client.address,
+      extraDetails: client.extraDetails,
     },
   });
   const saveClientUpdate = (values: ClientFormValues) => {
@@ -66,7 +60,7 @@ const EditClientDialog: React.FC<Props> = ({ client }) => {
       ...client,
       ...values,
     };
-    clientsDispatch({ type: "UPDATE_Client", payload: [updatedClient] });
+    clientsDispatch({ type: "UPDATE_CLIENT", payload: [updatedClient] });
     setIsOpen(false);
   };
 
@@ -74,7 +68,7 @@ const EditClientDialog: React.FC<Props> = ({ client }) => {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" title="Edit">
-          <Pencil aria-description="edit Client" />
+          <Pencil aria-description="edit client" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[525px]">
@@ -104,23 +98,12 @@ const EditClientDialog: React.FC<Props> = ({ client }) => {
             />
             <FormField
               control={form.control}
-              name="role"
+              name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Role</FormLabel>
+                  <FormLabel>Phone Number</FormLabel>
                   <FormControl>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a role" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Client">Client</SelectItem>
-                        <SelectItem value="admin">Admin</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Input type="tel" placeholder="0123456789" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -128,12 +111,25 @@ const EditClientDialog: React.FC<Props> = ({ client }) => {
             />
             <FormField
               control={form.control}
-              name="phoneNumber"
+              name="address"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone Number</FormLabel>
+                  <FormLabel>Address</FormLabel>
                   <FormControl>
-                    <Input type="tel" placeholder="0123456789" {...field} />
+                    <Input placeholder="Ghana, Western Region" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="extraDetails"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Extra Details</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Ghana, Western Region" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -104,7 +104,7 @@ function CreateEmployeeDialog() {
               name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Contact</FormLabel>
+                  <FormLabel>Phone Number</FormLabel>
                   <FormControl>
                     <Input placeholder="0123456789" {...field} />
                   </FormControl>

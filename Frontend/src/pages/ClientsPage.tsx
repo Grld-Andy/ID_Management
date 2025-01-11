@@ -1,33 +1,12 @@
 import { PaginationList } from "@/components/Layout/PaginationList";
-import ClientsTable from "@/components/Tables/Client/ClientTable";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Search, Filter } from "lucide-react";
+import { Search } from "lucide-react";
 import React, { useContext, useMemo, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Label } from "@/components/ui/label";
-import DeleteDialog from "@/components/Dialog/DeleteDialog";
-import { Checkbox } from "@/components/ui/checkbox";
 import ClientContext from "@/context/clientContext/context";
 import CreateClientDialog from "@/components/Dialog/Client/CreateClientDialog";
-
-interface ClientFilters {
-  show: string;
-  deactivated: boolean;
-}
-
+import ClientTable from "@/components/Tables/Client/ClientTable";
+import DeleteDialog from "@/components/Dialog/DeleteDialog";
 const ClientsPage: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -37,22 +16,8 @@ const ClientsPage: React.FC = () => {
   const [search, setSearch] = useState<string>("");
   const [selectedClients, setSelectedClients] = useState<Array<string>>([]);
   const [sortBy, setSortBy] = useState<string>("createdAt");
-  const initialFilters = {
-    show: "all",
-    deactivated: false,
-  };
-  const [filters, setFilters] = useState<ClientFilters>(
-    JSON.parse(
-      localStorage.getItem("ClientFilters") ||
-        `${JSON.stringify(initialFilters)}`
-    )
-  );
 
   const filteredClients = useMemo(() => {
-    localStorage.setItem(
-      "clientFilters",
-      JSON.stringify(filters || initialFilters)
-    );
     let filtered = clients.filter((item) =>
       item.name.toLowerCase().includes(search.toLowerCase())
     );
@@ -84,7 +49,7 @@ const ClientsPage: React.FC = () => {
       });
     }
     return filtered;
-  }, [clients, search, filters, sortBy, currentPage]);
+  }, [clients, search, sortBy, currentPage]);
 
   const itemsPerPage = 10;
   const totalItems = filteredClients.length;
@@ -147,73 +112,21 @@ const ClientsPage: React.FC = () => {
         </div>
 
         <div className="flex gap-2 place-content-end">
-          <Popover>
-            {selectedClients.length > 0 && (
-              <>
-                <DeleteDialog
-                  text={" selected Clients."}
-                  buttonText={"Delete"}
-                  deleteFunction={deleteSelectedClients}
-                />
-              </>
-            )}
-            <PopoverTrigger>
-              <Button title="Filter">
-                <p
-                  className="hidden xl:block"
-                  aria-description="filter Clients"
-                >
-                  Filter
-                </p>
-                <Filter />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <div className="grid gap-2">
-                <div className="grid grid-cols-[1fr,1fr] items-center gap-4">
-                  <Label htmlFor="width">Disabled Accounts</Label>
-                  <Checkbox
-                    checked={filters.deactivated}
-                    onCheckedChange={(checked) => {
-                      return checked
-                        ? setFilters((prev) => {
-                            return { ...prev, deactivated: true };
-                          })
-                        : setFilters((prev) => {
-                            return { ...prev, deactivated: false };
-                          });
-                    }}
-                  />
-                </div>
-                <div className="grid grid-cols-[1fr,1fr] items-center gap-4">
-                  <Label htmlFor="maxWidth">Admin</Label>
-                  <Select
-                    onValueChange={(value) =>
-                      setFilters((prev) => {
-                        return { ...prev, show: value };
-                      })
-                    }
-                    defaultValue={filters.show}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a verified email to display" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All</SelectItem>
-                      <SelectItem value="Client">Clients Only</SelectItem>
-                      <SelectItem value="admin">Admins Only</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </PopoverContent>
-          </Popover>
+          {selectedClients.length > 0 && (
+            <>
+              <DeleteDialog
+                text={" selected Clients."}
+                buttonText={"Delete"}
+                deleteFunction={deleteSelectedClients}
+              />
+            </>
+          )}
           <CreateClientDialog />
         </div>
       </div>
 
-      <ClientsTable
-        Clients={paginatedClients}
+      <ClientTable
+        clients={paginatedClients}
         sortBy={sortBy}
         selectedClients={selectedClients}
         setSelectedClients={setSelectedClients}

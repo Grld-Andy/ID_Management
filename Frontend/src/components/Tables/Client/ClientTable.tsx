@@ -6,26 +6,26 @@ import {
   Check,
 } from "lucide-react";
 import React from "react";
-import clientItem from "./ClientItem";
 import Client from "@/types/Client";
+import ClientItem from "./ClientItem";
 
 interface Props {
   clients: Array<Client>;
   sortBy: string;
   setSortBy: (val: string) => void;
-  selectedclients: Array<string>;
-  setSelectedclients: React.Dispatch<React.SetStateAction<string[]>>;
+  selectedClients: Array<string>;
+  setSelectedClients: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const clientsTable: React.FC<Props> = ({
   clients,
   sortBy,
   setSortBy,
-  selectedclients,
-  setSelectedclients,
+  selectedClients,
+  setSelectedClients,
 }) => {
   const toggleSelected = (itemId: string) => {
-    if (selectedclients.some((id) => id == itemId)) {
+    if (selectedClients.some((id) => id == itemId)) {
       removeFromSelected(itemId);
     } else {
       addToSelected(itemId);
@@ -33,20 +33,20 @@ const clientsTable: React.FC<Props> = ({
   };
 
   const toggleAll = () => {
-    if (selectedclients.length == clients.length) {
-      setSelectedclients([]);
+    if (selectedClients.length == clients.length) {
+      setSelectedClients([]);
     } else {
       const allclientIds = clients.map((client) => client._id);
-      setSelectedclients(allclientIds);
+      setSelectedClients(allclientIds);
     }
   };
 
   const addToSelected = (itemId: string) => {
-    setSelectedclients((prev) => [...prev, itemId]);
+    setSelectedClients((prev) => [...prev, itemId]);
   };
 
   const removeFromSelected = (itemId: string) => {
-    setSelectedclients((prev) => prev.filter((id) => id != itemId));
+    setSelectedClients((prev) => prev.filter((id) => id != itemId));
   };
 
   const toggleSortOrder = (val: string) => {
@@ -62,18 +62,16 @@ const clientsTable: React.FC<Props> = ({
       {clients.length > 0 ? (
         <div className="min-h-[650px]">
           <div className="w-full border rounded-md overflow-hidden">
-            <div className="grid grid-cols-[50px,repeat(2,1fr),0.5fr,1fr,115px] pr-1 bg-gray-200 font-bold text-gray-700 rounded-t-md">
+            <div className="grid grid-cols-[50px,repeat(4,1fr),115px] pr-1 bg-gray-200 font-bold text-gray-700 rounded-t-md">
               <div
                 className={`col-span-1 border p-3 ${
-                  selectedclients.length == clients.length
-                    ? ""
-                    : "opacity-0"
+                  selectedClients.length == clients.length ? "" : "opacity-0"
                 } hover:opacity-100 transition-opacity duration-300 grid place-items-center`}
               >
                 <div
                   onClick={toggleAll}
                   className={`border-[1px] w-5 h-5 rounded-sm relative cursor-pointer ${
-                    selectedclients.length == clients.length
+                    selectedClients.length == clients.length
                       ? "bg-[#0099ff] border-[#0099ff]"
                       : "border-black"
                   }`}
@@ -119,17 +117,17 @@ const clientsTable: React.FC<Props> = ({
               </div>
               <div
                 onClick={() => {
-                  toggleSortOrder("role");
+                  toggleSortOrder("address");
                 }}
                 className="col-span-1 p-3 flex hover:bg-gray-100 cursor-pointer"
               >
-                <p>Role</p>
-                {sortBy == "role" && (
+                <p>Address</p>
+                {sortBy == "address" && (
                   <div>
                     <ArrowDown01 className="text-green-700" />
                   </div>
                 )}
-                {sortBy == "-role" && (
+                {sortBy == "-address" && (
                   <div>
                     <ArrowDown10 className="text-red-900" />
                   </div>
@@ -159,10 +157,10 @@ const clientsTable: React.FC<Props> = ({
             </div>
             <div className="divide-y divide-gray-300">
               {clients.map((client, index) => (
-                <clientItem
+                <ClientItem
                   key={index}
                   client={client}
-                  selectedclients={selectedclients}
+                  selectedClients={selectedClients}
                   toggleSelected={toggleSelected}
                 />
               ))}

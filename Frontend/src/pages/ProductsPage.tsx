@@ -139,16 +139,16 @@ const StocksPage: React.FC = () => {
         </div>
 
         <div className="flex gap-2 place-content-end">
+          {selectedProducts.length > 0 && (
+            <>
+              <DeleteDialog
+                text={" selected products."}
+                buttonText={"Delete"}
+                deleteFunction={deleteSelectedProducts}
+              />
+            </>
+          )}
           <Popover>
-            {selectedProducts.length > 0 && (
-              <>
-                <DeleteDialog
-                  text={" selected products."}
-                  buttonText={"Delete"}
-                  deleteFunction={deleteSelectedProducts}
-                />
-              </>
-            )}
             <PopoverTrigger>
               <Button title="Filter">
                 <p

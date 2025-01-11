@@ -57,7 +57,7 @@ function CreateClientDialog() {
       createdBy: "Andy",
       ordersId: [],
     };
-    clientsDispatch({ type: "ADD_Client", payload: [clientToAdd] });
+    clientsDispatch({ type: "ADD_CLIENT", payload: [clientToAdd] });
     form.reset();
   };
 
@@ -66,7 +66,7 @@ function CreateClientDialog() {
       <DialogTrigger asChild>
         <Button title="Add Client">
           <p className="hidden xl:block">Add</p>
-          <UserPlus aria-description="add Client" />
+          <UserPlus aria-description="add client" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[525px]">
@@ -99,7 +99,7 @@ function CreateClientDialog() {
               name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Contact</FormLabel>
+                  <FormLabel>Phone Number</FormLabel>
                   <FormControl>
                     <Input placeholder="0123456789" {...field} />
                   </FormControl>

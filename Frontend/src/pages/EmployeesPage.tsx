@@ -156,16 +156,16 @@ const EmployeesPage: React.FC = () => {
         </div>
 
         <div className="flex gap-2 place-content-end">
+          {selectedEmployees.length > 0 && (
+            <>
+              <DeleteDialog
+                text={" selected Employees."}
+                buttonText={"Delete"}
+                deleteFunction={deleteSelectedEmployees}
+              />
+            </>
+          )}
           <Popover>
-            {selectedEmployees.length > 0 && (
-              <>
-                <DeleteDialog
-                  text={" selected Employees."}
-                  buttonText={"Delete"}
-                  deleteFunction={deleteSelectedEmployees}
-                />
-              </>
-            )}
             <PopoverTrigger>
               <Button title="Filter">
                 <p
