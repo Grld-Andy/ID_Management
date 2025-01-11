@@ -84,9 +84,9 @@ const StocksPage: React.FC = () => {
 
   const paginatedProducts = useMemo(() => {
     let startIndex = (currentPage - 1) * itemsPerPage;
-    // if (startIndex < filteredProducts.length) {
-    //   navigate("/products?page=1");
-    // }
+    if (startIndex > filteredProducts.length) {
+      navigate("/products?page=1");
+    }
     const endIndex = startIndex + itemsPerPage;
     return filteredProducts.slice(startIndex, endIndex);
   }, [filteredProducts, currentPage]);
@@ -114,7 +114,7 @@ const StocksPage: React.FC = () => {
           <h1 className="text-[28px] font-bold">Products</h1>
           <span
             title="Total Products"
-            className="relative font-medium top-2 rounded-full bg-blue-700 text-white w-7 h-7 grid place-items-center"
+            className="relative font-medium top-2 rounded-xl px-1 bg-blue-700 text-white h-7 grid place-items-center"
           >
             <p>{products.length}</p>
           </span>

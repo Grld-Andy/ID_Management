@@ -28,7 +28,7 @@ export const PaginationList: React.FC<Props> = ({
             className={`${
               currentPage > 1
                 ? ""
-                : "opacity-50 cursor-default pointer-events-none"
+                : "opacity-50 cursor-default pointer-events-none select-none"
             }`}
             to={`${baseUrl}?page=${currentPage > 1 ? currentPage - 1 : 0}`}
           />
@@ -139,7 +139,7 @@ export const PaginationList: React.FC<Props> = ({
             className={`${
               currentPage < totalPages
                 ? ""
-                : "opacity-50 cursor-default pointer-events-none"
+                : "opacity-50 cursor-default pointer-events-none select-none"
             }`}
             to={`${baseUrl}?page=${
               currentPage < totalPages ? currentPage + 1 : totalPages
