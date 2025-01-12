@@ -6,7 +6,7 @@ const clientSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide client name"],
   },
-  phone: {
+  phoneNumber: {
     type: String,
     required: [true, "Please provdie client's phone number"],
     validate: function (value: string) {
