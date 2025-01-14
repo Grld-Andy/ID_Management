@@ -5,9 +5,9 @@ export const ClientReducer = (
   action: { type: string; payload: Array<Client>; id?: string }
 ): Array<Client> => {
   switch (action.type) {
-    case "ADD_EMPLOYEE":
+    case "ADD_CLIENT":
       return [...state, ...action.payload];
-    case "UPDATE_EMPLOYEE":
+    case "UPDATE_CLIENT":
       return state.map((client) => {
         if (client._id == action.payload[0]._id) {
           return { ...client, ...action.payload[0] };
@@ -15,11 +15,9 @@ export const ClientReducer = (
           return { ...client };
         }
       });
-    case "DELETE_EMPLOYEE":
-      return state.map((client) => {
-        return client._id == action.id ? { ...client, active: false } : client;
-      });
-    case "REFRESH_EMPLOYEES":
+    case "DELETE_CLIENT":
+      return state.filter((client) => client._id != action.id);
+    case "REFRESH_CLIENTS":
       return action.payload;
     default:
       return state;

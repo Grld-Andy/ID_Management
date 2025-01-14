@@ -58,7 +58,7 @@ const ClientsPage: React.FC = () => {
   const paginatedClients = useMemo(() => {
     let startIndex = (currentPage - 1) * itemsPerPage;
     if (startIndex > filteredClients.length) {
-      navigate("/Clients?page=1");
+      navigate("/clients?page=1");
     }
     const endIndex = startIndex + itemsPerPage;
     return filteredClients.slice(startIndex, endIndex);
@@ -66,15 +66,15 @@ const ClientsPage: React.FC = () => {
 
   const deleteSelectedClients = async () => {
     await Promise.all(
-      selectedClients.map(async (ClientId) => {
+      selectedClients.map(async (clientId) => {
         try {
           clientsDispatch({
-            type: "DELETE_Client",
+            type: "DELETE_CLIENT",
             payload: [],
-            id: ClientId,
+            id: clientId,
           });
         } catch (error) {
-          console.error(`Error deleting Client with ID ${ClientId}:`, error);
+          console.error(`Error deleting client with ID ${clientId}:`, error);
         }
       })
     );
@@ -115,7 +115,7 @@ const ClientsPage: React.FC = () => {
           {selectedClients.length > 0 && (
             <>
               <DeleteDialog
-                text={" selected Clients."}
+                text={" selected clients."}
                 buttonText={"Delete"}
                 deleteFunction={deleteSelectedClients}
               />
