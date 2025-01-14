@@ -6,6 +6,7 @@ import App from "./App.tsx";
 import EmployeeContextProvider from "./context/employeeContext/provider.tsx";
 import ProductContextProvider from "./context/productsContext/provider.tsx";
 import ClientContextProvider from "./context/clientContext/provider.tsx";
+import OrderContextProvider from "./context/orderContext/provider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -13,7 +14,9 @@ createRoot(document.getElementById("root")!).render(
       <EmployeeContextProvider>
         <ClientContextProvider>
           <ProductContextProvider>
-            <App />
+            <OrderContextProvider>
+              <App />
+            </OrderContextProvider>
           </ProductContextProvider>
         </ClientContextProvider>
       </EmployeeContextProvider>

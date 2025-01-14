@@ -13,6 +13,7 @@ import Profile from "@/pages/Settings/Profile";
 import Appearance from "@/pages/Settings/Appearance";
 import Messages from "@/pages/Settings/Messages";
 import Account from "@/pages/Settings/Account";
+import ClientPage from "./pages/ClientPage";
 
 function App() {
   return (
@@ -20,7 +21,9 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/" element={<Layout />}>
+        <Route index element={<ClientsPage />} />
         <Route path="/clients" element={<ClientsPage />} />
+        <Route path="/clients/:id" element={<ClientPage />} />
         <Route path="/finance" element={<FinancePage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/orders" element={<OrdersPage />} />

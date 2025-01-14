@@ -1,9 +1,11 @@
 import DeleteDialog from "@/components/Dialog/DeleteDialog";
 import EditClientDialog from "@/components/Dialog/Client/EditClientDialog";
 import Client from "@/types/Client";
-import { Check } from "lucide-react";
+import { Check, Wallet } from "lucide-react";
 import React, { useContext } from "react";
 import ClientContext from "@/context/clientContext/context";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   client: Client;
@@ -32,7 +34,7 @@ const ClientItem: React.FC<Props> = ({
   };
 
   return (
-    <div className="grid grid-cols-[50px,repeat(4,1fr),115px] pr-1 items-center transition-colors duration-200">
+    <div className="grid grid-cols-[50px,repeat(4,1fr),175px] pr-1 items-center transition-colors duration-200">
       <div className="col-span-1 p-3 grid place-items-center cursor-pointer">
         <div
           onClick={() => toggleSelected(client._id)}
@@ -51,6 +53,11 @@ const ClientItem: React.FC<Props> = ({
       <div className="col-span-1 p-2">{client.createdAt.toDateString()}</div>
       <div className="col-span-1 p-2 flex gap-2">
         <>
+          <Link to={`/clients/${client._id}`}>
+            <Button className="bg-green-700 hover:bg-green-400">
+              <Wallet />
+            </Button>
+          </Link>
           <EditClientDialog client={client} />
           <DeleteDialog text={client.name} deleteFunction={deleteClient} />
         </>

@@ -6,26 +6,26 @@ import {
   Check,
 } from "lucide-react";
 import React from "react";
-import Client from "@/types/Client";
-import ClientItem from "./ClientItem";
+import Order from "@/types/Order";
+import OrderItem from "./OrderItem";
 
 interface Props {
-  clients: Array<Client>;
+  orders: Array<Order>;
   sortBy: string;
   setSortBy: (val: string) => void;
-  selectedClients: Array<string>;
-  setSelectedClients: React.Dispatch<React.SetStateAction<string[]>>;
+  selectedOrders: Array<string>;
+  setSelectedOrders: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const clientsTable: React.FC<Props> = ({
-  clients,
+const OrdersTable: React.FC<Props> = ({
+  orders,
   sortBy,
   setSortBy,
-  selectedClients,
-  setSelectedClients,
+  selectedOrders,
+  setSelectedOrders,
 }) => {
   const toggleSelected = (itemId: string) => {
-    if (selectedClients.some((id) => id == itemId)) {
+    if (selectedOrders.some((id) => id == itemId)) {
       removeFromSelected(itemId);
     } else {
       addToSelected(itemId);
@@ -33,20 +33,20 @@ const clientsTable: React.FC<Props> = ({
   };
 
   const toggleAll = () => {
-    if (selectedClients.length == clients.length) {
-      setSelectedClients([]);
+    if (selectedOrders.length == orders.length) {
+      setSelectedOrders([]);
     } else {
-      const allclientIds = clients.map((client) => client._id);
-      setSelectedClients(allclientIds);
+      const allOrderIds = orders.map((order) => order._id || "");
+      setSelectedOrders(allOrderIds);
     }
   };
 
   const addToSelected = (itemId: string) => {
-    setSelectedClients((prev) => [...prev, itemId]);
+    setSelectedOrders((prev) => [...prev, itemId]);
   };
 
   const removeFromSelected = (itemId: string) => {
-    setSelectedClients((prev) => prev.filter((id) => id != itemId));
+    setSelectedOrders((prev) => prev.filter((id) => id != itemId));
   };
 
   const toggleSortOrder = (val: string) => {
@@ -59,19 +59,19 @@ const clientsTable: React.FC<Props> = ({
 
   return (
     <>
-      {clients.length > 0 ? (
+      {orders.length > 0 ? (
         <div className="min-h-[650px]">
           <div className="w-full border rounded-md overflow-hidden">
-            <div className="grid grid-cols-[50px,repeat(4,1fr),175px] pr-1 bg-gray-200 font-bold text-gray-700 rounded-t-md">
+            <div className="grid grid-cols-[50px,70px,repeat(2,1fr),0.5fr,1fr,115px] pr-1 bg-gray-200 font-bold text-gray-700 rounded-t-md">
               <div
                 className={`col-span-1 border p-3 ${
-                  selectedClients.length == clients.length ? "" : "opacity-0"
+                  selectedOrders.length == orders.length ? "" : "opacity-0"
                 } hover:opacity-100 transition-opacity duration-300 grid place-items-center`}
               >
                 <div
                   onClick={toggleAll}
                   className={`border-[1px] w-5 h-5 rounded-sm relative cursor-pointer ${
-                    selectedClients.length == clients.length
+                    selectedOrders.length == orders.length
                       ? "bg-[#0099ff] border-[#0099ff]"
                       : "border-black"
                   }`}
@@ -79,19 +79,22 @@ const clientsTable: React.FC<Props> = ({
                   <Check className="relative right-[3px] bottom-[3px] scale-90 text-white" />
                 </div>
               </div>
+              <div className="col-span-1 flex p-3">
+                <p>ID</p>
+              </div>
               <div
                 onClick={() => {
-                  toggleSortOrder("name");
+                  toggleSortOrder("client");
                 }}
                 className="col-span-1 flex cursor-pointer p-3 hover:bg-gray-100"
               >
-                <p>Name</p>
-                {sortBy == "name" && (
+                <p>Client</p>
+                {sortBy == "client" && (
                   <div>
                     <ArrowDownAZ className="text-green-700" />
                   </div>
                 )}
-                {sortBy == "-name" && (
+                {sortBy == "-client" && (
                   <div>
                     <ArrowDownZA className="text-red-900" />
                   </div>
@@ -99,17 +102,17 @@ const clientsTable: React.FC<Props> = ({
               </div>
               <div
                 onClick={() => {
-                  toggleSortOrder("phoneNumber");
+                  toggleSortOrder("price");
                 }}
                 className="col-span-1 p-3 flex hover:bg-gray-100 cursor-pointer"
               >
-                <p>Contact</p>
-                {sortBy == "phoneNumber" && (
+                <p>Price</p>
+                {sortBy == "price" && (
                   <div>
                     <ArrowDown01 className="text-green-700" />
                   </div>
                 )}
-                {sortBy == "-phoneNumber" && (
+                {sortBy == "-price" && (
                   <div>
                     <ArrowDown10 className="text-red-900" />
                   </div>
@@ -117,17 +120,17 @@ const clientsTable: React.FC<Props> = ({
               </div>
               <div
                 onClick={() => {
-                  toggleSortOrder("address");
+                  toggleSortOrder("status");
                 }}
-                className="col-span-1 p-3 flex hover:bg-gray-100 cursor-pointer"
+                className="col-span-1 p-3 hover:bg-gray-100 cursor-pointer flex justify-center"
               >
-                <p>Address</p>
-                {sortBy == "address" && (
+                <p>Status</p>
+                {sortBy == "status" && (
                   <div>
                     <ArrowDown01 className="text-green-700" />
                   </div>
                 )}
-                {sortBy == "-address" && (
+                {sortBy == "-status" && (
                   <div>
                     <ArrowDown10 className="text-red-900" />
                   </div>
@@ -139,7 +142,7 @@ const clientsTable: React.FC<Props> = ({
                 }}
                 className="col-span-1 p-3 flex hover:bg-gray-100 cursor-pointer"
               >
-                <p>Joined</p>
+                <p>Added</p>
                 {sortBy == "createdAt" && (
                   <div>
                     <ArrowDown01 className="text-green-700" />
@@ -151,16 +154,16 @@ const clientsTable: React.FC<Props> = ({
                   </div>
                 )}
               </div>
-              <div className="col-span-1 p-3 flex justify-center">
+              <div className="col-span-1 p-3 flex">
                 <p>Actions</p>
               </div>
             </div>
             <div className="divide-y divide-gray-300">
-              {clients.map((client, index) => (
-                <ClientItem
+              {orders.map((order, index) => (
+                <OrderItem
                   key={index}
-                  client={client}
-                  selectedClients={selectedClients}
+                  order={order}
+                  selectedOrders={selectedOrders}
                   toggleSelected={toggleSelected}
                 />
               ))}
@@ -169,11 +172,11 @@ const clientsTable: React.FC<Props> = ({
         </div>
       ) : (
         <h1 className="text-[20px] font-medium text-gray-700">
-          No clients found
+          No Orders found
         </h1>
       )}
     </>
   );
 };
 
-export default clientsTable;
+export default OrdersTable;
