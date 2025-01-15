@@ -7,6 +7,7 @@ import ClientContext from "@/context/clientContext/context";
 import CreateClientDialog from "@/components/Dialog/Client/CreateClientDialog";
 import ClientTable from "@/components/Tables/Client/ClientTable";
 import DeleteDialog from "@/components/Dialog/DeleteDialog";
+
 const ClientsPage: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();

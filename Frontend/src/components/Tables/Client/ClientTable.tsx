@@ -62,7 +62,7 @@ const clientsTable: React.FC<Props> = ({
       {clients.length > 0 ? (
         <div className="min-h-[580px] bg-white rounded-lg overflow-hidden border-2 border-border1">
           <div className="w-full rounded-md overflow-hidden">
-            <div className="grid grid-cols-[50px,repeat(4,1fr),175px] bg-gradient-to-r from-color1 to-color2 font-bold text-white rounded-t-md">
+            <div className="grid grid-cols-[50px,repeat(4,1fr),90px] lg:grid-cols-[50px,repeat(4,1fr),175px] bg-gradient-to-r from-color1 to-color2 font-bold text-white rounded-t-md">
               <div
                 className={`col-span-1 p-3 ${
                   selectedClients.length == clients.length ? "" : "opacity-0"

@@ -6,6 +6,14 @@ import React, { useContext } from "react";
 import ClientContext from "@/context/clientContext/context";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface Props {
   client: Client;
@@ -34,7 +42,7 @@ const ClientItem: React.FC<Props> = ({
   };
 
   return (
-    <div className="grid grid-cols-[50px,repeat(4,1fr),175px] pr-1 items-center transition-colors duration-200">
+    <div className="grid grid-cols-[50px,repeat(4,1fr),90px] lg:grid-cols-[50px,repeat(4,1fr),175px] pr-1 items-center transition-colors duration-200">
       <div className="col-span-1 p-3 grid place-items-center cursor-pointer">
         <div
           onClick={() => toggleSelected(client._id)}
@@ -51,7 +59,8 @@ const ClientItem: React.FC<Props> = ({
       <div className="col-span-1 p-2">{client.phoneNumber}</div>
       <div className="col-span-1 p-2">{client.address}</div>
       <div className="col-span-1 p-2">{client.createdAt.toDateString()}</div>
-      <div className="col-span-1 p-2 flex gap-2">
+
+      <div className="col-span-1 p-2 gap-2 hidden lg:flex">
         <>
           <Link to={`/clients/${client._id}`}>
             <Button className="bg-addButton hover:opacity-50 hover:bg-addButton">
@@ -61,6 +70,32 @@ const ClientItem: React.FC<Props> = ({
           <EditClientDialog client={client} />
           <DeleteDialog text={client.name} deleteFunction={deleteClient} />
         </>
+      </div>
+
+      <div className="col-span-1 p-2 flex lg:hidden">
+        <DropdownMenu>
+          <DropdownMenuTrigger className="text-white border px-2 py-1 rounded-md bg-editButton">
+            Actions
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <Link to={`/clients/${client._id}`}>
+                <Button className="bg-addButton hover:opacity-50 hover:bg-addButton">
+                  <span>Add Order</span>
+                  <BookUser />
+                </Button>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <EditClientDialog client={client} />
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <DeleteDialog text={client.name} deleteFunction={deleteClient} />
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );

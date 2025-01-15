@@ -14,6 +14,7 @@ import EditClientDialog from "@/components/Dialog/Client/EditClientDialog";
 import DeleteDialog from "@/components/Dialog/DeleteDialog";
 import OrderContext from "@/context/orderContext/context";
 import { House, Package, PhoneCall } from "lucide-react";
+import CreateOrderDialog from "@/components/Dialog/Order/CreateOrderDialog";
 
 const ClientPage: React.FC = () => {
   const { id } = useParams();
@@ -41,26 +42,27 @@ const ClientPage: React.FC = () => {
 
   return (
     <div>
-      <div className="flex justify-between mb-6 border border-black items-end">
+      <div className="flex justify-between mb-6 items-end">
         <h1 className="text-2xl font-medium">{client.name}</h1>
         <div className="space-x-4">
+          <CreateOrderDialog />
           <EditClientDialog client={client} />
           <DeleteDialog text={client.name} deleteFunction={deleteClient} />
         </div>
       </div>
 
       <div className="mb-6 flex gap-5">
-        <div className="flex gap-4">
-          <PhoneCall />
+        <div className="flex gap-1">
+          <PhoneCall className="text-color1" />
           <h1>{client.phoneNumber}</h1>
         </div>
-        <div>
-          <House />
+        <div className="flex gap-1">
+          <House className="text-color2" />
           <h1>{client.address}</h1>
         </div>
-        <div>
-          <Package />
-          <h1>{client.ordersId}</h1>
+        <div className="flex gap-1">
+          <Package className="text-deleteButton" />
+          <h1>Total Orders: {client.ordersId.length}</h1>
         </div>
       </div>
 
