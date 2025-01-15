@@ -40,7 +40,7 @@ const ClientItem: React.FC<Props> = ({
           onClick={() => toggleSelected(client._id)}
           className={`border-[1px] w-5 h-5 rounded-sm relative ${
             selectedClients.some((id) => id == client._id)
-              ? "bg-[#0099ff] border-[#0099ff]"
+              ? "bg-color2 border-color2"
               : "border-black"
           }`}
         >
@@ -54,7 +54,7 @@ const ClientItem: React.FC<Props> = ({
       <div className="col-span-1 p-2 flex gap-2">
         <>
           <Link to={`/clients/${client._id}`}>
-            <Button className="bg-green-700 hover:bg-green-400">
+            <Button className="bg-addButton hover:opacity-50 hover:bg-addButton">
               <Wallet />
             </Button>
           </Link>

@@ -60,11 +60,11 @@ const clientsTable: React.FC<Props> = ({
   return (
     <>
       {clients.length > 0 ? (
-        <div className="min-h-[650px]">
-          <div className="w-full border rounded-md overflow-hidden">
-            <div className="grid grid-cols-[50px,repeat(4,1fr),175px] pr-1 bg-gray-200 font-bold text-gray-700 rounded-t-md">
+        <div className="min-h-[580px] bg-white rounded-lg overflow-hidden border-2 border-border1">
+          <div className="w-full rounded-md overflow-hidden">
+            <div className="grid grid-cols-[50px,repeat(4,1fr),175px] bg-gradient-to-r from-color1 to-color2 font-bold text-white rounded-t-md">
               <div
-                className={`col-span-1 border p-3 ${
+                className={`col-span-1 p-3 ${
                   selectedClients.length == clients.length ? "" : "opacity-0"
                 } hover:opacity-100 transition-opacity duration-300 grid place-items-center`}
               >
@@ -72,7 +72,7 @@ const clientsTable: React.FC<Props> = ({
                   onClick={toggleAll}
                   className={`border-[1px] w-5 h-5 rounded-sm relative cursor-pointer ${
                     selectedClients.length == clients.length
-                      ? "bg-[#0099ff] border-[#0099ff]"
+                      ? "bg-color2 border-color2"
                       : "border-black"
                   }`}
                 >
@@ -83,7 +83,7 @@ const clientsTable: React.FC<Props> = ({
                 onClick={() => {
                   toggleSortOrder("name");
                 }}
-                className="col-span-1 flex cursor-pointer p-3 hover:bg-gray-100"
+                className="col-span-1 flex cursor-pointer p-3 hover:bg-[#fff5]"
               >
                 <p>Name</p>
                 {sortBy == "name" && (
@@ -101,7 +101,7 @@ const clientsTable: React.FC<Props> = ({
                 onClick={() => {
                   toggleSortOrder("phoneNumber");
                 }}
-                className="col-span-1 p-3 flex hover:bg-gray-100 cursor-pointer"
+                className="col-span-1 p-3 flex hover:bg-[#fff5] cursor-pointer"
               >
                 <p>Contact</p>
                 {sortBy == "phoneNumber" && (
@@ -119,7 +119,7 @@ const clientsTable: React.FC<Props> = ({
                 onClick={() => {
                   toggleSortOrder("address");
                 }}
-                className="col-span-1 p-3 flex hover:bg-gray-100 cursor-pointer"
+                className="col-span-1 p-3 flex hover:bg-[#fff5] cursor-pointer"
               >
                 <p>Address</p>
                 {sortBy == "address" && (
@@ -137,7 +137,7 @@ const clientsTable: React.FC<Props> = ({
                 onClick={() => {
                   toggleSortOrder("createdAt");
                 }}
-                className="col-span-1 p-3 flex hover:bg-gray-100 cursor-pointer"
+                className="col-span-1 p-3 flex hover:bg-[#fff5] cursor-pointer"
               >
                 <p>Joined</p>
                 {sortBy == "createdAt" && (

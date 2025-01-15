@@ -49,7 +49,7 @@ const DeleteDialog: React.FC<Props> = ({
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
         <Button
-          variant="destructive"
+          className="bg-deleteButton hover:bg-deleteButton hover:opacity-60"
           aria-description="delete product"
           title="Delete"
         >

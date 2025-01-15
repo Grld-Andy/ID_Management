@@ -1,114 +1,118 @@
-import React, { useContext, useState } from "react";
-import { useParams } from "react-router-dom"; // Assuming you're using React Router for navigation
-import { Trash, Edit, Plus } from "lucide-react"; // Lucide icons for trash, edit, and add new order
-import clients from "@/data/clients"; // The list of clients (can be fetched from a server)
-import orders from "@/data/orders"; // The list of orders (can be fetched from a server)
 import ClientContext from "@/context/clientContext/context";
+import React, { useContext } from "react";
+import { useParams } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import EditClientDialog from "@/components/Dialog/Client/EditClientDialog";
+import DeleteDialog from "@/components/Dialog/DeleteDialog";
+import OrderContext from "@/context/orderContext/context";
 
-const ClientPage = () => {
-  const clientId = useParams().id;
-  const { clients } = useContext(ClientContext);
+const ClientPage: React.FC = () => {
+  const { id } = useParams();
+  const { clients, clientsDispatch } = useContext(ClientContext);
+  const { orders } = useContext(OrderContext);
+  const client = clients.find((c) => c._id == id);
+  const clientOrders = orders.filter((o) => o.clientId == id);
 
-  // Find the client by ID
-  const client = clients.find((client) => client._id === clientId);
-
-  if (!client) {
-    return <h1>Not found</h1>;
+  if (!client || !clientOrders) {
+    return <div>Client not found</div>;
   }
 
-  // Find the orders for the client
-  const clientOrders = orders.filter((order) => order.clientId === clientId);
-
-  //   const handleEdit = () => {
-  //     // Redirect to edit client page
-  //     history.push(`/edit-client/${clientId}`);
-  //   };
-
-  const handleDelete = () => {
-    // Handle client deletion (e.g., call an API to delete)
-    alert(`Deleting client: ${client.name}`);
+  const deleteClient = () => {
+    try {
+      clientsDispatch({
+        type: "DELETE_CLIENT",
+        payload: [],
+        id: client._id,
+      });
+      console.log("Client deleted successfully.");
+    } catch (error) {
+      console.error("Error deleting Client:", error);
+    }
   };
 
-  //   const handleAddOrder = () => {
-  //     // Handle adding a new order (e.g., redirect to new order page)
-  //     history.push(`/add-order/${clientId}`);
-  //   };
-
   return (
-    <div className="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-md">
-      {/* Client Details Section */}
+    <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">{client.name}</h1>
+        <h1 className="text-2xl font-medium">{client.name}</h1>
         <div className="space-x-4">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-            <Edit className="inline mr-2" /> Edit
-          </button>
-          <button
-            onClick={handleDelete}
-            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-          >
-            <Trash className="inline mr-2" /> Delete
-          </button>
+          <EditClientDialog client={client} />
+          <DeleteDialog text={client.name} deleteFunction={deleteClient} />
         </div>
       </div>
 
-      {/* Client Information */}
-      <div className="mb-6">
-        <p>
-          <strong>Phone Number:</strong> {client.phoneNumber}
-        </p>
-        <p>
-          <strong>Address:</strong> {client.address}
-        </p>
-        <p>
-          <strong>Extra Details:</strong> {client.extraDetails}
-        </p>
-        <p>
-          <strong>Created At:</strong>{" "}
-          {new Date(client.createdAt).toLocaleDateString()}
-        </p>
-        <p>
-          <strong>Created By:</strong> {client.createdBy}
-        </p>
-      </div>
-
-      {/* Add Order Button */}
-      <div className="mb-6">
-        <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-          <Plus className="inline mr-2" /> Add New Order
-        </button>
-      </div>
-
-      {/* Client Orders List */}
-      <div>
-        <h2 className="text-xl font-semibold mb-4">Client Orders</h2>
-        <div className="space-y-4">
-          {clientOrders.length > 0 ? (
-            clientOrders.map((order) => (
-              <div key={order._id} className="p-4 border rounded-lg shadow-sm">
-                <p>
-                  <strong>Order ID:</strong> {order._id}
-                </p>
-                <p>
-                  <strong>Status:</strong> {order.status}
-                </p>
-                <p>
-                  <strong>Total:</strong> ${order.total}
-                </p>
-                <p>
-                  <strong>Request:</strong> {order.request}
-                </p>
-                <p>
-                  <strong>Created At:</strong>{" "}
-                  {new Date(order.createdAt).toLocaleDateString()}
-                </p>
-              </div>
-            ))
-          ) : (
-            <p>No orders found for this client.</p>
-          )}
-        </div>
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>All Orders</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[100px]">Invoice</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Products</TableHead>
+                <TableHead className="text-center">Method</TableHead>
+                <TableHead className="text-right">Amount</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {clientOrders.map((clientOrder, index) => (
+                <TableRow key={index}>
+                  <TableCell className="font-medium">
+                    {clientOrder._id}
+                  </TableCell>
+                  <TableCell
+                    key={index}
+                    className="flex flex-col gap-2 border-r border-l"
+                  >
+                    {JSON.parse(clientOrder.products).map(
+                      (
+                        product: { productName: string; price: number },
+                        index: number
+                      ) => (
+                        <div
+                          key={index}
+                          className="flex w-full justify-between"
+                        >
+                          <p>{product.productName}</p>
+                          <p>{product.price}</p>
+                        </div>
+                      )
+                    )}
+                  </TableCell>
+                  <TableCell>Credit Card</TableCell>
+                  <TableCell>
+                    <div className="col-span-1 p-2 flex justify-center">
+                      <span
+                        className={`flex items-center w-[75px] text-sm justify-center text-white rounded-2xl ${
+                          clientOrder.status == "cancelled"
+                            ? "bg-red-600 "
+                            : clientOrder.status == "completed"
+                            ? "bg-green-500"
+                            : "bg-yellow-600"
+                        }`}
+                      >
+                        {clientOrder.status}
+                      </span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    {clientOrder.totalPrice}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
     </div>
   );
 };

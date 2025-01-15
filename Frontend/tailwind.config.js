@@ -4,6 +4,20 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
     extend: {
+      backgroundColor: {
+        color1: "var(--color1)",
+        color2: "var(--color2)",
+        coloredBg: "var(--coloredBg)",
+        editButton: "var(--editButton)",
+        addButton: "var(--addButton)",
+        deleteButton: "var(--deleteButton)",
+        sidebarBg1: "var(--sidebarBg1)",
+        sidebarBg2: "var(--sidebarBg2)",
+        border1: "var(--border1)",
+        hoverLink: "var(--hoverLink)",
+        sidebarText: "var(--sidebarText)",
+        sidebarBgHover: "var(--sidebarBgHover)",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -12,6 +26,18 @@ module.exports = {
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        color1: "var(--color1)",
+        color2: "var(--color2)",
+        coloredBg: "var(--coloredBg)",
+        editButton: "var(--editButton)",
+        addButton: "var(--addButton)",
+        deleteButton: "var(--deleteButton)",
+        sidebarBg1: "var(--sidebarBg1)",
+        sidebarBg2: "var(--sidebarBg2)",
+        border1: "var(--border1)",
+        hoverLink: "var(--hoverLink)",
+        sidebarText: "var(--sidebarText)",
+        sidebarBgHover: "var(--sidebarBgHover)",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
@@ -38,7 +64,7 @@ module.exports = {
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          foreground: "var(--deleteButton)",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

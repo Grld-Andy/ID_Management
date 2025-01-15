@@ -27,7 +27,7 @@ export const PaginationList: React.FC<Props> = ({
           <PaginationPrevious
             className={`${
               currentPage > 1
-                ? ""
+                ? "hover:bg-hoverLink hover:text-white"
                 : "opacity-50 cursor-default pointer-events-none select-none"
             }`}
             to={`${baseUrl}?page=${currentPage > 1 ? currentPage - 1 : 0}`}
@@ -39,7 +39,9 @@ export const PaginationList: React.FC<Props> = ({
             <PaginationItem key={index}>
               <PaginationLink
                 className={`${
-                  currentPage == index + 1 ? "bg-gray-400 text-white" : ""
+                  currentPage == index + 1
+                    ? "bg-color2 hover:bg-color2 hover:text-white hover:opacity-50 text-white"
+                    : "hover:bg-hoverLink hover:text-white"
                 }`}
                 to={`${baseUrl}?page=${index + 1}`}
               >
@@ -55,7 +57,9 @@ export const PaginationList: React.FC<Props> = ({
                   <PaginationItem key={index}>
                     <PaginationLink
                       className={`${
-                        currentPage == index + 1 ? "bg-gray-400 text-white" : ""
+                        currentPage == index + 1
+                          ? "bg-color2 hover:bg-color2 hover:text-white hover:opacity-50 text-white"
+                          : "hover:bg-hoverLink hover:text-white"
                       }`}
                       to={`${baseUrl}?page=${index + 1}`}
                     >
@@ -71,8 +75,8 @@ export const PaginationList: React.FC<Props> = ({
                     <PaginationLink
                       className={`${
                         currentPage == index + currentPage - 1
-                          ? "bg-gray-400 text-white"
-                          : ""
+                          ? "bg-color2 hover:bg-color2 hover:text-white hover:opacity-50 text-white"
+                          : "hover:bg-hoverLink hover:text-white"
                       }`}
                       to={`${baseUrl}?page=${currentPage + index - 1}`}
                     >
@@ -88,8 +92,8 @@ export const PaginationList: React.FC<Props> = ({
                     <PaginationLink
                       className={`${
                         currentPage == totalPages - _page
-                          ? "bg-gray-400 text-white"
-                          : ""
+                          ? "bg-color2 hover:bg-color2 hover:text-white hover:opacity-50 text-white"
+                          : "hover:bg-hoverLink hover:text-white"
                       }`}
                       to={`${baseUrl}?page=${totalPages - _page}`}
                     >
@@ -104,7 +108,9 @@ export const PaginationList: React.FC<Props> = ({
                   <PaginationItem key={index}>
                     <PaginationLink
                       className={`${
-                        currentPage == index + 1 ? "bg-gray-400 text-white" : ""
+                        currentPage == index + 1
+                          ? "bg-color2 hover:bg-color2 hover:text-white hover:opacity-50 text-white"
+                          : "hover:bg-hoverLink hover:text-white"
                       }`}
                       to={`${baseUrl}?page=${index + 1}`}
                     >
@@ -120,8 +126,8 @@ export const PaginationList: React.FC<Props> = ({
                     <PaginationLink
                       className={`${
                         currentPage == totalPages - _page
-                          ? "bg-gray-400 text-white"
-                          : ""
+                          ? "bg-color2 hover:bg-color2 hover:text-white hover:opacity-50 text-white"
+                          : "hover:bg-hoverLink hover:text-white"
                       }`}
                       to={`${baseUrl}?page=${totalPages - _page}`}
                     >
@@ -138,7 +144,7 @@ export const PaginationList: React.FC<Props> = ({
           <PaginationNext
             className={`${
               currentPage < totalPages
-                ? ""
+                ? "hover:bg-hoverLink hover:text-white"
                 : "opacity-50 cursor-default pointer-events-none select-none"
             }`}
             to={`${baseUrl}?page=${

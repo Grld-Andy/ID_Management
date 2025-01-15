@@ -67,7 +67,10 @@ const EditClientDialog: React.FC<Props> = ({ client }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" title="Edit">
+        <Button
+          className="bg-editButton hover:bg-editButton hover:opacity-60"
+          title="Edit"
+        >
           <Pencil aria-description="edit client" />
         </Button>
       </DialogTrigger>

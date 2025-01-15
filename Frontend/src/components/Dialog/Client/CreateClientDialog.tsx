@@ -64,7 +64,10 @@ function CreateClientDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button title="Add Client">
+        <Button
+          className="bg-addButton hover:bg-addButton hover:opacity-50"
+          title="Add Client"
+        >
           <p className="hidden xl:block">Add</p>
           <UserPlus aria-description="add client" />
         </Button>

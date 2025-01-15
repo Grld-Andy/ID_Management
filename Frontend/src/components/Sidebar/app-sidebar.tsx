@@ -115,11 +115,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {/* <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader> */}
-      <SidebarContent>
+      <SidebarContent className="bg-gradient-to-b from-color1 to-sidebarBg2 text-sidebarText">
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="bg-sidebarBg2">
         <NavUser user={data.user} />
       </SidebarFooter>
       <SidebarRail />

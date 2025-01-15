@@ -84,10 +84,10 @@ const ClientsPage: React.FC = () => {
     <div className="flex flex-col gap-4">
       <div className="flex justify-between align-center">
         <div className="flex gap-2 align-center">
-          <h1 className="text-[28px] font-bold">Clients</h1>
+          <h1 className="text-[28px] font-medium">Clients</h1>
           <span
             title="Total Clients"
-            className="relative font-medium top-2 rounded-xl px-1 bg-blue-700 text-white h-7 grid place-items-center"
+            className="relative font-medium top-2 rounded-xl px-1 bg-color1 text-white h-7 grid place-items-center"
           >
             <p>{clients.length}</p>
           </span>
@@ -105,7 +105,7 @@ const ClientsPage: React.FC = () => {
               onChange={(e) => {
                 setSearch(e.target.value);
               }}
-              className="pr-8 w-full"
+              className="pr-8 w-full bg-white"
             />
             <Search className="h-full absolute right-2 cursor-pointer" />
           </div>
@@ -125,13 +125,15 @@ const ClientsPage: React.FC = () => {
         </div>
       </div>
 
-      <ClientTable
-        clients={paginatedClients}
-        sortBy={sortBy}
-        selectedClients={selectedClients}
-        setSelectedClients={setSelectedClients}
-        setSortBy={setSortBy}
-      />
+      <div className="min-h-[650px]">
+        <ClientTable
+          clients={paginatedClients}
+          sortBy={sortBy}
+          selectedClients={selectedClients}
+          setSelectedClients={setSelectedClients}
+          setSortBy={setSortBy}
+        />
+      </div>
       {paginatedClients.length ? (
         <PaginationList
           totalPages={totalPages}

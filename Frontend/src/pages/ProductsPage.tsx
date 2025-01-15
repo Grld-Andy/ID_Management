@@ -111,7 +111,7 @@ const StocksPage: React.FC = () => {
     <div className="flex flex-col gap-4">
       <div className="flex justify-between align-center">
         <div className="flex gap-2 align-center">
-          <h1 className="text-[28px] font-bold">Products</h1>
+          <h1 className="text-[28px] font-medium">Products</h1>
           <span
             title="Total Products"
             className="relative font-medium top-2 rounded-xl px-1 bg-blue-700 text-white h-7 grid place-items-center"

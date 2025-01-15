@@ -2,9 +2,9 @@ interface Order {
   _id?: string;
   clientId: string;
   clientName?: string;
-  total: number;
+  totalPrice: number;
   status: "pending" | "completed" | "cancelled";
-  request: string;
+  products: string;
   createdAt: Date;
   createdBy: string;
 }

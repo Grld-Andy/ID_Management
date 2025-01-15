@@ -47,7 +47,7 @@ const OrderItem: React.FC<Props> = ({
       </div>
       <div className="col-span-1 p-2">{order._id}</div>
       <div className="col-span-1 p-2">{order.clientName}</div>
-      <div className="col-span-1 p-2">{order.total}</div>
+      <div className="col-span-1 p-2">{order.totalPrice}</div>
       <div className="col-span-1 p-2 flex justify-center">
         <span
           className={`flex items-center w-[75px] text-sm justify-center text-white rounded-2xl ${

@@ -128,7 +128,7 @@ const EmployeesPage: React.FC = () => {
     <div className="flex flex-col gap-4">
       <div className="flex justify-between align-center">
         <div className="flex gap-2 align-center">
-          <h1 className="text-[28px] font-bold">Employees</h1>
+          <h1 className="text-[28px] font-medium">Employees</h1>
           <span
             title="Total Employees"
             className="relative font-medium top-2 rounded-xl px-1 bg-blue-700 text-white h-7 grid place-items-center"

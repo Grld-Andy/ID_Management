@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 
 const Layout: React.FC = () => {
   return (
-    <>
+    <div>
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset>
@@ -16,13 +16,13 @@ const Layout: React.FC = () => {
             </div>
           </header>
 
-          <div className="p-5 pt-10">
+          <div className="p-5 pt-10 bg-coloredBg">
             <Outlet />
             <Toaster />
           </div>
         </SidebarInset>
       </SidebarProvider>
-    </>
+    </div>
   );
 };
 
