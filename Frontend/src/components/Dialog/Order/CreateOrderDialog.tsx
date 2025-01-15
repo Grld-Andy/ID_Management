@@ -53,22 +53,25 @@ function CreateOrderDialog() {
   const addOrder = (values: OrderFormValues) => {
     const newOrder: Order = {
       ...values,
-      total: 0,
-      clientName: 'someone',
+      totalPrice: 0,
+      clientName: "someone",
       status: "pending",
-      request: "[{something: 30}]",
+      products: "[{something: 30}]",
       clientId: "someone",
       createdAt: new Date(),
       createdBy: "Andy",
     };
-    ordersDispatch({ type: "ADD_Order", payload: [newOrder] });
+    ordersDispatch({ type: "ADD_ORDER", payload: [newOrder] });
     form.reset();
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button title="Add Order">
+        <Button
+          className="bg-addButton hover:bg-addButton hover:opacity-50"
+          title="Add Order"
+        >
           <p className="hidden xl:block">Add</p>
           <PackagePlus aria-description="add Order" />
         </Button>

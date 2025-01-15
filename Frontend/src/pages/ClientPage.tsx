@@ -13,6 +13,7 @@ import {
 import EditClientDialog from "@/components/Dialog/Client/EditClientDialog";
 import DeleteDialog from "@/components/Dialog/DeleteDialog";
 import OrderContext from "@/context/orderContext/context";
+import { House, Package, PhoneCall } from "lucide-react";
 
 const ClientPage: React.FC = () => {
   const { id } = useParams();
@@ -40,11 +41,26 @@ const ClientPage: React.FC = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between mb-6 border border-black items-end">
         <h1 className="text-2xl font-medium">{client.name}</h1>
         <div className="space-x-4">
           <EditClientDialog client={client} />
           <DeleteDialog text={client.name} deleteFunction={deleteClient} />
+        </div>
+      </div>
+
+      <div className="mb-6 flex gap-5">
+        <div className="flex gap-4">
+          <PhoneCall />
+          <h1>{client.phoneNumber}</h1>
+        </div>
+        <div>
+          <House />
+          <h1>{client.address}</h1>
+        </div>
+        <div>
+          <Package />
+          <h1>{client.ordersId}</h1>
         </div>
       </div>
 
@@ -57,10 +73,10 @@ const ClientPage: React.FC = () => {
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[100px]">Invoice</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Products</TableHead>
-                <TableHead className="text-center">Method</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
+                <TableHead className="border-l border-r">Status</TableHead>
+                <TableHead className="">Products</TableHead>
+                <TableHead className=" text-center">Method</TableHead>
+                <TableHead className=" text-right">Amount</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -71,7 +87,7 @@ const ClientPage: React.FC = () => {
                   </TableCell>
                   <TableCell
                     key={index}
-                    className="flex flex-col gap-2 border-r border-l"
+                    className="flex flex-col border-l border-r p-0"
                   >
                     {JSON.parse(clientOrder.products).map(
                       (
@@ -80,7 +96,7 @@ const ClientPage: React.FC = () => {
                       ) => (
                         <div
                           key={index}
-                          className="flex w-full justify-between"
+                          className="flex w-full justify-between border-b p-2"
                         >
                           <p>{product.productName}</p>
                           <p>{product.price}</p>
@@ -88,8 +104,8 @@ const ClientPage: React.FC = () => {
                       )
                     )}
                   </TableCell>
-                  <TableCell>Credit Card</TableCell>
-                  <TableCell>
+                  <TableCell className="">Credit Card</TableCell>
+                  <TableCell className="">
                     <div className="col-span-1 p-2 flex justify-center">
                       <span
                         className={`flex items-center w-[75px] text-sm justify-center text-white rounded-2xl ${
@@ -104,7 +120,7 @@ const ClientPage: React.FC = () => {
                       </span>
                     </div>
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right ">
                     {clientOrder.totalPrice}
                   </TableCell>
                 </TableRow>

@@ -61,10 +61,10 @@ const OrdersTable: React.FC<Props> = ({
     <>
       {orders.length > 0 ? (
         <div className="min-h-[650px]">
-          <div className="w-full border rounded-md overflow-hidden">
-            <div className="grid grid-cols-[50px,70px,repeat(2,1fr),0.5fr,1fr,115px] pr-1 bg-gray-200 font-bold text-gray-700 rounded-t-md">
+          <div className="w-full border-2 border-border1 rounded-md overflow-hidden">
+            <div className="grid grid-cols-[50px,70px,repeat(2,1fr),0.5fr,1fr,115px] bg-gradient-to-r from-color1 to-color2 font-bold text-white">
               <div
-                className={`col-span-1 border p-3 ${
+                className={`col-span-1 p-3 ${
                   selectedOrders.length == orders.length ? "" : "opacity-0"
                 } hover:opacity-100 transition-opacity duration-300 grid place-items-center`}
               >
@@ -72,7 +72,7 @@ const OrdersTable: React.FC<Props> = ({
                   onClick={toggleAll}
                   className={`border-[1px] w-5 h-5 rounded-sm relative cursor-pointer ${
                     selectedOrders.length == orders.length
-                      ? "bg-[#0099ff] border-[#0099ff]"
+                      ? "bg-color2 border-color2"
                       : "border-black"
                   }`}
                 >
@@ -86,7 +86,7 @@ const OrdersTable: React.FC<Props> = ({
                 onClick={() => {
                   toggleSortOrder("client");
                 }}
-                className="col-span-1 flex cursor-pointer p-3 hover:bg-gray-100"
+                className="col-span-1 flex cursor-pointer p-3 hover:bg-[#fff5]"
               >
                 <p>Client</p>
                 {sortBy == "client" && (
@@ -104,7 +104,7 @@ const OrdersTable: React.FC<Props> = ({
                 onClick={() => {
                   toggleSortOrder("price");
                 }}
-                className="col-span-1 p-3 flex hover:bg-gray-100 cursor-pointer"
+                className="col-span-1 flex cursor-pointer p-3 hover:bg-[#fff5]"
               >
                 <p>Price</p>
                 {sortBy == "price" && (
@@ -122,7 +122,7 @@ const OrdersTable: React.FC<Props> = ({
                 onClick={() => {
                   toggleSortOrder("status");
                 }}
-                className="col-span-1 p-3 hover:bg-gray-100 cursor-pointer flex justify-center"
+                className="col-span-1 flex cursor-pointer p-3 hover:bg-[#fff5] justify-center"
               >
                 <p>Status</p>
                 {sortBy == "status" && (
@@ -140,7 +140,7 @@ const OrdersTable: React.FC<Props> = ({
                 onClick={() => {
                   toggleSortOrder("createdAt");
                 }}
-                className="col-span-1 p-3 flex hover:bg-gray-100 cursor-pointer"
+                className="col-span-1 flex cursor-pointer p-3 hover:bg-[#fff5]"
               >
                 <p>Added</p>
                 {sortBy == "createdAt" && (

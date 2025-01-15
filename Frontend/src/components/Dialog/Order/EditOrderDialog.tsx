@@ -69,7 +69,7 @@ const EditOrderDialog: React.FC<Props> = ({ order }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">
+        <Button className="bg-editButton hover:bg-editButton hover:opacity-60">
           <Pencil aria-description="edit Order" />
         </Button>
       </DialogTrigger>

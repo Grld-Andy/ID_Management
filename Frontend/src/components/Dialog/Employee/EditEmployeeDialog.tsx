@@ -73,7 +73,10 @@ const EditEmployeeDialog: React.FC<Props> = ({ employee }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" title="Edit">
+        <Button
+          className="bg-editButton hover:bg-editButton hover:opacity-60"
+          title="Edit"
+        >
           <Pencil aria-description="edit employee" />
         </Button>
       </DialogTrigger>

@@ -64,7 +64,10 @@ function CreateProductDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button title="Add Product">
+        <Button
+          className="bg-addButton hover:bg-addButton hover:opacity-50"
+          title="Add Product"
+        >
           <p className="hidden xl:block">Add</p>
           <PackagePlus aria-description="add product" />
         </Button>

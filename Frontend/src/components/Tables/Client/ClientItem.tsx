@@ -1,7 +1,7 @@
 import DeleteDialog from "@/components/Dialog/DeleteDialog";
 import EditClientDialog from "@/components/Dialog/Client/EditClientDialog";
 import Client from "@/types/Client";
-import { Check, Wallet } from "lucide-react";
+import { BookUser, Check } from "lucide-react";
 import React, { useContext } from "react";
 import ClientContext from "@/context/clientContext/context";
 import { Link } from "react-router-dom";
@@ -55,7 +55,7 @@ const ClientItem: React.FC<Props> = ({
         <>
           <Link to={`/clients/${client._id}`}>
             <Button className="bg-addButton hover:opacity-50 hover:bg-addButton">
-              <Wallet />
+              <BookUser />
             </Button>
           </Link>
           <EditClientDialog client={client} />

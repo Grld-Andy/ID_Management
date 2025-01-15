@@ -17,6 +17,7 @@ module.exports = {
         hoverLink: "var(--hoverLink)",
         sidebarText: "var(--sidebarText)",
         sidebarBgHover: "var(--sidebarBgHover)",
+        sidebarBgActive: "var(--sidebarBgActive)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -38,6 +39,7 @@ module.exports = {
         hoverLink: "var(--hoverLink)",
         sidebarText: "var(--sidebarText)",
         sidebarBgHover: "var(--sidebarBgHover)",
+        sidebarBgActive: "var(--sidebarBgActive)",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",

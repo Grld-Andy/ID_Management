@@ -69,7 +69,10 @@ function CreateEmployeeDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button title="Add Employee">
+        <Button
+          className="bg-addButton hover:bg-addButton hover:opacity-50"
+          title="Add Employee"
+        >
           <p className="hidden xl:block">Add</p>
           <UserPlus aria-description="add Employee" />
         </Button>

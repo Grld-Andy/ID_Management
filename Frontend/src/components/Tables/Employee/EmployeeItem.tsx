@@ -47,7 +47,7 @@ const EmployeeItem: React.FC<Props> = ({
           onClick={() => toggleSelected(employee._id)}
           className={`border-[1px] w-5 h-5 rounded-sm relative ${
             selectedEmployees.some((id) => id == employee._id)
-              ? "bg-[#0099ff] border-[#0099ff]"
+              ? "bg-color2 border-color2"
               : "border-black"
           }`}
         >

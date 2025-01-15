@@ -114,7 +114,7 @@ const StocksPage: React.FC = () => {
           <h1 className="text-[28px] font-medium">Orders</h1>
           <span
             title="Total Orders"
-            className="relative font-medium top-2 rounded-xl px-1 bg-blue-700 text-white h-7 grid place-items-center"
+            className="relative font-medium top-2 rounded-xl px-1 bg-color1 text-white h-7 grid place-items-center"
           >
             <p>{orders.length}</p>
           </span>
@@ -132,7 +132,7 @@ const StocksPage: React.FC = () => {
               onChange={(e) => {
                 setSearch(e.target.value);
               }}
-              className="pr-8 w-full"
+              className="pr-8 w-full bg-white"
             />
             <Search className="h-full absolute right-2 cursor-pointer" />
           </div>
@@ -150,7 +150,10 @@ const StocksPage: React.FC = () => {
           )}
           <Popover>
             <PopoverTrigger>
-              <Button title="Filter">
+              <Button
+                title="Filter"
+                className="bg-color2 hover:bg-color2 hover:opacity-50"
+              >
                 <p className="hidden xl:block" aria-description="filter Orders">
                   Filter
                 </p>

@@ -49,6 +49,7 @@
     --border1: #d8b4fe;
     --sidebarText: white;
     --sidebarBgHover: #fff5;
+    --sidebarBgActive: #eb489a88;
   }
   .dark {
     --background: 240 10% 3.9%;

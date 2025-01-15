@@ -9,14 +9,14 @@ const Layout: React.FC = () => {
     <div>
       <SidebarProvider>
         <AppSidebar />
-        <SidebarInset>
+        <SidebarInset className="bg-coloredBg">
           <header className="flex h-10 absolute shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-10">
             <div className="flex items-center gap-2 px-4">
               <SidebarTrigger className="" />
             </div>
           </header>
 
-          <div className="p-5 pt-10 bg-coloredBg">
+          <div className="p-5 pt-10">
             <Outlet />
             <Toaster />
           </div>

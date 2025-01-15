@@ -35,7 +35,7 @@ export function NavMain({
 }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel className="text-sidebarText hover:text-sidebarText">
+      <SidebarGroupLabel className="text-sidebarText">
         Activities
       </SidebarGroupLabel>
       <SidebarMenu>
@@ -49,9 +49,12 @@ export function NavMain({
             <SidebarMenuItem>
               <CollapsibleTrigger
                 asChild
-                className="hover:bg-sidebarBgHover hover:text-sidebarText"
+                className="hover:bg-sidebarBgHover hover:text-sidebarText active:bg-sidebarBgActive active:text-sidebarText"
               >
-                <SidebarMenuButton tooltip={item.title}>
+                <SidebarMenuButton
+                  tooltip={item.title}
+                  className="hover:bg-sidebarBgHover hover:text-sidebarText data-[state=open]:bg-sidebarBgActive data-[state=open]:text-sidebarText hover:data-[state=open]:bg-sidebarBgHover hover:data-[state=open]:text-sidebarText"
+                >
                   {item.icon && <item.icon />}
                   <span className="text-sidebarText hover:text-sidebarText">
                     {item.title}
@@ -65,7 +68,7 @@ export function NavMain({
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton
                         asChild
-                        className="hover:bg-sidebarBgHover"
+                        className="hover:bg-sidebarBgHover active:bg-sidebarBgActive"
                       >
                         <Link to={subItem.url}>
                           <span className="text-sidebarText">

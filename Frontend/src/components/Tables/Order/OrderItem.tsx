@@ -38,7 +38,7 @@ const OrderItem: React.FC<Props> = ({
           onClick={() => toggleSelected(order._id || "")}
           className={`border-[1px] w-5 h-5 rounded-sm relative ${
             selectedOrders.some((id) => id == order._id)
-              ? "bg-[#0099ff] border-[#0099ff]"
+              ? "bg-color2 border-color2"
               : "border-black"
           }`}
         >
